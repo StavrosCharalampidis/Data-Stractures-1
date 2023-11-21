@@ -1,5 +1,10 @@
 #!bin/bash
 
+for i in {2..10}
+do
+    echo "output: $i"
+done
+
 git add Icsd_Lab02/*
 git commit -m "C Exercise"
 git push -u origin Test
