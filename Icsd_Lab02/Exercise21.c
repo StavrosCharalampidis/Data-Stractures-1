@@ -21,6 +21,7 @@ typedef struct Doubly_Linked_List
 void addNodeSingle(S_Node **head, int data, const char *position);
 void addDescending(S_Node **head, int value);
 void displayList(S_Node *head);
+
 int countList(S_Node *head);
 void deleteNode(S_Node **head, int delVal);
 void deleteFirst(S_Node **head);
@@ -32,31 +33,12 @@ void swapElements2(D_Node **head, D_Node **tail);
 D_Node **find(D_Node* head, D_Node *tail);
 void ReversedisplayList(D_Node **head, D_Node **tail);
 
-
-void freeList(D_Node *head)
-{
-    while (head != NULL)
-    {
-        D_Node *temp = head;
-        head = head->next;
-        free(temp);
-    }
-}
+void freeList(D_Node *head);
+void printList(D_Node *head);
 
 
-void printList(D_Node *head)
-{
-    while (head != NULL)
-    {
-        printf("%d ", head->data);
-        head = head->next;
-    }
-    printf("\n");
-}
 
-
-int main(int argc, char const *argv[])
-{
+int main(int argc, char const *argv[]) {
     S_Node *singleLinkListHead1, *singleLinkListHead2 = NULL;
 
     addNodeSingle(&singleLinkListHead1, 6,"tail");
@@ -68,7 +50,7 @@ int main(int argc, char const *argv[])
     addNodeSingle(&singleLinkListHead1, 55,"tail");
 
     displayList(singleLinkListHead1);
-    printf("%d count singleLinkListHead1 \n", countList(singleLinkListHead1));
+    printf("Count %d singleLinkListHead1 \n", countList(singleLinkListHead1));
 
     addNodeSingle(&singleLinkListHead2, 45, "head");
     addNodeSingle(&singleLinkListHead2,38, "tail");
@@ -79,7 +61,7 @@ int main(int argc, char const *argv[])
 
     addDescending(&singleLinkListHead2,3);
     displayList(singleLinkListHead2);
-    printf("%d count singleLinkListHead2 \n", countList(singleLinkListHead2));
+    printf("Count %d singleLinkListHead2 \n", countList(singleLinkListHead2));
 
     deleteNode(&singleLinkListHead1,55);
     deleteFirst(&singleLinkListHead1);
@@ -106,13 +88,13 @@ int main(int argc, char const *argv[])
 
     S_Node* result = appendLists(head1, head2);
 
-    printf("New SLL: ");
+    printf("New singleLinkList: ");
     displayList(result);
 
     D_Node *DoubleLinkListHead = NULL;
     D_Node *DoubleLinkListTail = NULL;
 
-    printf("Αρχική λίστα: ");
+    printf("DoubleLinkListHead: ");
 
     addNodeDouble(&DoubleLinkListHead, &DoubleLinkListTail, 2, "tail");
     addNodeDouble(&DoubleLinkListHead, &DoubleLinkListTail, 5, "tail");
@@ -121,11 +103,11 @@ int main(int argc, char const *argv[])
 
     printList(DoubleLinkListHead);
     
-    //ReversedisplayList(&DoubleLinkListHead, &DoubleLinkListTail);
+    ReversedisplayList(&DoubleLinkListHead, &DoubleLinkListTail);
     printf("\n");
 
     swapElements2(&DoubleLinkListHead, &DoubleLinkListTail);
-    printf("Λίστα μετά την αντιστροφή: ");
+    printf("swapElements2: ");
     printList(DoubleLinkListHead);
 
     // Απελευθέρωση της μνήμης που καταλαμβάνει η λίστα
@@ -459,4 +441,22 @@ void ReversedisplayList(D_Node **head, D_Node **tail) {
             current = current->prev;
         }
     }
+}
+
+void freeList(D_Node *head) {
+    while (head != NULL)
+    {
+        D_Node *temp = head;
+        head = head->next;
+        free(temp);
+    }
+}
+
+void printList(D_Node *head) {
+    while (head != NULL)
+    {
+        printf("%d ", head->data);
+        head = head->next;
+    }
+    printf("\n");
 }
