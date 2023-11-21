@@ -17,7 +17,7 @@ typedef struct Doubly_Linked_List
 } D_Node;
 
 
-void addNodeSingle(S_Node **head, int value, char pos);
+void addNodeSingle(S_Node **head, int value, char * pos);
 void addDescending(S_Node **head, int value);
 void displayList(S_Node *head);
 int countList(S_Node *head);
@@ -25,44 +25,88 @@ void deleteNode(S_Node **head, int delVal);
 void deleteFirst(S_Node **head);
 S_Node *appendLists(S_Node *head1, S_Node *head2);
 
-void addNodeDouble(){}
-void swapElements1(){}
-void swapElements2(){}
-void ReversedisplayList(){}
 
+
+void createNode(S_Node **head, int value)
+{
+    S_Node *newNode;
+    newNode = (S_Node *) malloc(sizeof(S_Node));
+    newNode->data=value;
+    if(*head==NULL)
+    {
+        newNode->next=NULL;
+        *head=newNode;
+    }
+    else
+    {
+        newNode->next=*head;
+        *head=newNode;
+    }
+}
 
 
 int main(int argc, char const *argv[])
 {
-    S_Node *head = NULL;
-    S_Node *node2 = NULL;
-    S_Node *node3 = NULL;
-    S_Node *node4 = NULL;
+    S_Node *lista;
+    S_Node *l1;
+    lista=NULL;
+    l1=NULL;
 
-    // allocate 3 nodes in the heap
-    head = (S_Node *)malloc(sizeof(S_Node));
-    node2 = (S_Node *)malloc(sizeof(S_Node));
-    node3 = (S_Node *)malloc(sizeof(S_Node));
-    node4 = (S_Node *)malloc(sizeof(S_Node));
+    D_Node *lista2, *lista2last;
+    lista2=NULL;
+    lista2last=NULL;
 
-    head->data = 10;
-    head->next = node2;
+    createNode(&lista,6);
+    createNode(&lista,4);
+    createNode(&lista,9);
+    createNode(&lista,2);
+    createNode(&lista,3);
 
-    node2->data = 20;
-    node2->next = node3;
+    addNodeSingle(&lista, 55,"head");
 
-    node3->data = 30;
-    node3->next = node4;
+    displayList(lista);
+    printf("%d count lista \n", countList(lista));
 
-    node4->data = 40;
-    node4->next = NULL;
+    createNode(&l1,45);
+    createNode(&l1,38);
+    createNode(&l1,24);
+    createNode(&l1,12);
+    createNode(&l1,8);
 
-    displayList(head);
 
+    addNodeSingle(&l1, 61, "tail");
+    addDescending(&l1,3);
+    displayList(l1);
+    printf("%d count li \n", countList(l1));
+
+    deleteNode(&lista,55);
+    deleteFirst(&lista);
+    displayList(lista);
+    printf("uoei\n");
+
+    S_Node *head1, *head2 = NULL;
+    addDescending(&head2, 40);
+    addDescending(&head2, 25);
+    addDescending(&head2, 60);
+    addDescending(&head2, 80);
+    addDescending(&head2, 109);
+    displayList(head2);
+
+    addDescending(&head2, 5);
+    addDescending(&head2, 20);
+    addDescending(&head1, 2);
+    addDescending(&head1, 8);
+    addDescending(&head1, 1);
+    displayList(head1);
+
+    S_Node* result = appendLists(head1, head2);
+
+    printf("New SLL: ");
+    displayList(result);
     return 0;
 }
 
-void addNodeSingle(S_Node **head, int value, char pos) {
+void addNodeSingle(S_Node **head, int value, char * pos) {
     S_Node *newNode;
     newNode = (S_Node *) malloc (sizeof(S_Node));
     newNode -> data = value;
@@ -86,39 +130,35 @@ void addNodeSingle(S_Node **head, int value, char pos) {
     }
 }
 
-void addAscending(S_Node **head, int value) {
-    S_Node *newNode,*temp = *head, *p;
-    newNode = (S_Node *) malloc (sizeof(S_Node));
-    newNode -> data = value;
 
-    while (newNode -> data > temp -> data) {
-        p = temp;
-        temp = temp -> next;
-        if (temp -> next == NULL) {
-            break;
-        }
-    }
+void addDescending(S_Node **head, int value) {
+    S_Node *newNode = (S_Node *)malloc(sizeof(S_Node));
+    newNode->data = value;
+    newNode->next = NULL;
 
-    if (*head == NULL) {
-        newNode -> next = NULL;
+    
+
+        if (*head == NULL)
+    {
         *head = newNode;
+        return;
     }
 
-    else if (newNode -> data < temp -> data) {
-        newNode -> next = *head;
+    if ((*head)->data <= value)
+    {
+        newNode->next = *head;
         *head = newNode;
+        return;
     }
 
-    else if (newNode -> data > temp -> data) { 
-        newNode -> next = NULL;
-        temp -> next = newNode;
+    S_Node *current = *head;
+    while (current->next != NULL && current->next->data > value)
+    {
+        current = current->next;
     }
 
-    else {
-        temp = newNode;
-        newNode -> next = p -> next;
-        p -> next = temp;
-    }
+    newNode->next = current->next;
+    current->next = newNode;
 }
 
 void displayList(S_Node *head) {
