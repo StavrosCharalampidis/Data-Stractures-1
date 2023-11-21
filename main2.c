@@ -25,7 +25,7 @@ int countList(S_Node *head);
 void deleteNode(S_Node **head, int delVal);
 void deleteFirst(S_Node **head);
 S_Node *appendLists(S_Node *head1, S_Node *head2);
-
+void swapElements1(S_Node **head);
 
 
 
@@ -84,6 +84,22 @@ int main(int argc, char const *argv[])
 
     printf("New SLL: ");
     displayList(result);
+
+    S_Node *head = NULL;
+    addNodeSingle(&head, 4,"head");
+    addNodeSingle(&head, 9,"head");
+    addNodeSingle(&head, 2,"head");
+    addNodeSingle(&head, 3,"head");
+    addNodeSingle(&head, 55,"head");
+
+    printf("Αρχική λίστα: ");
+    displayList(head);
+    
+    swapElements1(&head);
+    
+    printf("Τροποποιημένη λίστα: ");
+    displayList(head);
+
     return 0;
 }
 
@@ -222,8 +238,7 @@ void deleteFirst(S_Node **head) {
     free (temp);
 }
 
-S_Node *appendLists(S_Node *head1, S_Node *head2)
-{
+S_Node *appendLists(S_Node *head1, S_Node *head2) {
     S_Node *result = NULL;
     S_Node **lastPtrRef = &result;
     while (1)
@@ -255,3 +270,24 @@ S_Node *appendLists(S_Node *head1, S_Node *head2)
 
     return result;
 }
+
+void swapElements1(S_Node **head) {
+    if (*head == NULL || (*head)->next == NULL) {
+        return;
+    }
+    
+    S_Node *prev = NULL;
+    S_Node *current = *head;
+    
+    while (current->next != NULL) {
+        prev = current;
+        current = current->next;
+    }
+    
+    prev->next = NULL;
+    current->next = *head;
+    *head = current;
+}
+
+
+
