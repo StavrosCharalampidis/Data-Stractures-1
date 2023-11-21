@@ -111,7 +111,7 @@ int main(int argc, char const *argv[]) {
     printf("\n");
 
     swapElements2(&DoubleLinkListHead, &DoubleLinkListTail);
-    printf("swapElements2: ");
+    printf("SwapElements2: ");
     printList(DoubleLinkListHead);
 
     // Απελευθέρωση της μνήμης που καταλαμβάνει η λίστα
