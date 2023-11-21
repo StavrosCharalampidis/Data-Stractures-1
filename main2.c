@@ -80,21 +80,21 @@ int main(int argc, char const *argv[])
     printf("\n");
 
     S_Node *head1, *head2 = NULL;
-    addDescending(&head2, 40);
-    addDescending(&head2, 25);
-    addDescending(&head2, 60);
-    addDescending(&head2, 80);
-    addDescending(&head2, 109);
+    addDescending(&head1, 40);
+    addDescending(&head1, 25);
+    addDescending(&head1, 60);
+    addDescending(&head1, 80);
+    addDescending(&head1, 109);
     printf("SingleLinkList1: ");
-    displayList(head2);
+    displayList(head1);
 
     addDescending(&head2, 5);
     addDescending(&head2, 20);
-    addDescending(&head1, 2);
-    addDescending(&head1, 8);
-    addDescending(&head1, 1);
+    addDescending(&head2, 2);
+    addDescending(&head2, 8);
+    addDescending(&head2, 1);
     printf("SingleLinkList2: ");
-    displayList(head1);
+    displayList(head2);
 
     S_Node* result = appendLists(head1, head2);
 
