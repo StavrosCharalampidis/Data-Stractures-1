@@ -18,7 +18,7 @@ typedef struct Doubly_Linked_List
 } D_Node;
 
 
-void addNodeSingle(S_Node **head, int value, char * pos);
+void addNodeSingle(S_Node **head, int value, char *pos);
 void addDescending(S_Node **head, int value);
 void displayList(S_Node *head);
 int countList(S_Node *head);
@@ -26,40 +26,63 @@ void deleteNode(S_Node **head, int delVal);
 void deleteFirst(S_Node **head);
 S_Node *appendLists(S_Node *head1, S_Node *head2);
 
+void addNodeDouble(D_Node **head, D_Node **tail, int data, const char *position);
+void swapElements1(S_Node **head);
+void swapElements2(D_Node **head, D_Node **tail);
+void ReversedisplayList(D_Node **head, D_Node **tail);
 
 
+void freeList(D_Node *head)
+{
+    while (head != NULL)
+    {
+        D_Node *temp = head;
+        head = head->next;
+        free(temp);
+    }
+}
+
+
+void printList(D_Node *head)
+{
+    while (head != NULL)
+    {
+        printf("%d ", head->data);
+        head = head->next;
+    }
+    printf("\n");
+}
 
 
 int main(int argc, char const *argv[])
 {
-    S_Node *SingleLinkList1, *SingleLinkList2 = NULL;
-    D_Node *DoubleLinkList1, *DoubleLinkList2 = NULL;
+    S_Node *singleLinkListHead1, *singleLinkListHead2 = NULL;
 
-    addNodeSingle(&SingleLinkList1, 6,"head");
+    addNodeSingle(&singleLinkListHead1, 6,"head");
 
-    addNodeSingle(&SingleLinkList1, 4,"tail");
-    addNodeSingle(&SingleLinkList1, 9,"tail");
-    addNodeSingle(&SingleLinkList1, 2,"tail");
-    addNodeSingle(&SingleLinkList1, 3,"tail");
-    addNodeSingle(&SingleLinkList1, 55,"tail");
+    addNodeSingle(&singleLinkListHead1, 4,"tail");
+    addNodeSingle(&singleLinkListHead1, 9,"tail");
+    addNodeSingle(&singleLinkListHead1, 2,"tail");
+    addNodeSingle(&singleLinkListHead1, 3,"tail");
+    addNodeSingle(&singleLinkListHead1, 55,"tail");
 
-    displayList(SingleLinkList1);
-    printf("%d count SingleLinkList1 \n", countList(SingleLinkList1));
+    displayList(singleLinkListHead1);
+    printf("%d count singleLinkListHead1 \n", countList(singleLinkListHead1));
 
-    addNodeSingle(&SingleLinkList2, 45, "head");
-    addNodeSingle(&SingleLinkList2,38, "tail");
-    addNodeSingle(&SingleLinkList2,24, "tail");
-    addNodeSingle(&SingleLinkList2,12, "tail");
-    addNodeSingle(&SingleLinkList2,8, "tail");
-    addNodeSingle(&SingleLinkList2, 61, "tail");
+    addNodeSingle(&singleLinkListHead2, 45, "head");
+    addNodeSingle(&singleLinkListHead2,38, "tail");
+    addNodeSingle(&singleLinkListHead2,24, "tail");
+    addNodeSingle(&singleLinkListHead2,12, "tail");
+    addNodeSingle(&singleLinkListHead2,8, "tail");
+    addNodeSingle(&singleLinkListHead2, 61, "tail");
 
-    addDescending(&SingleLinkList2,3);
-    displayList(SingleLinkList2);
-    printf("%d count SingleLinkList2 \n", countList(SingleLinkList2));
+    addDescending(&singleLinkListHead2,3);
+    displayList(singleLinkListHead2);
+    printf("%d count singleLinkListHead2 \n", countList(singleLinkListHead2));
 
-    deleteNode(&SingleLinkList1,55);
-    deleteFirst(&SingleLinkList1);
-    displayList(SingleLinkList1);
+    deleteNode(&singleLinkListHead1,55);
+    deleteFirst(&singleLinkListHead1);
+    displayList(singleLinkListHead1);
 
     printf("\n");
 
@@ -69,7 +92,7 @@ int main(int argc, char const *argv[])
     addDescending(&head1, 60);
     addDescending(&head1, 80);
     addDescending(&head1, 109);
-    printf("SingleLinkList1: ");
+    printf("singleLinkListHead1: ");
     displayList(head1);
 
     addDescending(&head2, 5);
@@ -77,15 +100,39 @@ int main(int argc, char const *argv[])
     addDescending(&head2, 2);
     addDescending(&head2, 8);
     addDescending(&head2, 1);
-    printf("SingleLinkList2: ");
+    printf("singleLinkListHead2: ");
     displayList(head2);
 
     S_Node* result = appendLists(head1, head2);
 
     printf("New SLL: ");
     displayList(result);
+
+    D_Node *DoubleLinkListHead = NULL;
+    D_Node *DoubleLinkListTail = NULL;
+
+    printf("Αρχική λίστα: ");
+
+    addNodeDouble(&DoubleLinkListHead, &DoubleLinkListTail, 2, "tail");
+    addNodeDouble(&DoubleLinkListHead, &DoubleLinkListTail, 5, "tail");
+    addNodeDouble(&DoubleLinkListHead, &DoubleLinkListTail, 3, "head");
+    addNodeDouble(&DoubleLinkListHead, &DoubleLinkListTail, 10, "tail");
+
+    printList(DoubleLinkListHead);
+    
+    //ReversedisplayList(&DoubleLinkListHead, &DoubleLinkListTail);
+    printf("\n");
+
+    swapElements2(&DoubleLinkListHead, &DoubleLinkListTail);
+    printf("Λίστα μετά την αντιστροφή: ");
+    printList(DoubleLinkListHead);
+    // Απελευθέρωση της μνήμης που καταλαμβάνει η λίστα
+    freeList(DoubleLinkListHead);
+    
+
     return 0;
 }
+
 
 void addNodeSingle(S_Node **head, int value, char * pos) {
     S_Node *newNode;
@@ -222,8 +269,7 @@ void deleteFirst(S_Node **head) {
     free (temp);
 }
 
-S_Node *appendLists(S_Node *head1, S_Node *head2)
-{
+S_Node *appendLists(S_Node *head1, S_Node *head2) {
     S_Node *result = NULL;
     S_Node **lastPtrRef = &result;
     while (1)
@@ -254,4 +300,106 @@ S_Node *appendLists(S_Node *head1, S_Node *head2)
     }
 
     return result;
+}
+
+void addNodeDouble(D_Node **head, D_Node **tail, int data, const char *position) {
+    if (position == NULL || (*position != 'h' && *position != 't'))
+    {
+        printf("Μη έγκυρη θέση. Χρησιμοποιήστε 'head' ή 'tail'.\n");
+        return;
+    }
+
+    D_Node *newNode = (D_Node *)malloc(sizeof(D_Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    newNode->prev = NULL;
+
+    if (*head == NULL)
+    {
+        *head = *tail = newNode;
+    }
+    else
+    {
+        if (*position == 'h')
+        {
+            newNode->next = *head;
+            (*head)->prev = newNode;
+            *head = newNode;
+        }
+        else
+        {
+            newNode->prev = *tail;
+            (*tail)->next = newNode;
+            *tail = newNode;
+        }
+    }
+}
+
+void swapElements1(S_Node **head) {
+    S_Node *current = *head, *temp = NULL, *index = NULL;
+
+    if (*head == NULL) {
+        return;
+    }
+
+    else {
+        while (current->next != NULL) {
+            index = current;
+            current = current->next;
+        }
+        
+        if (*head == current) {
+            return;
+        }
+        
+        else if ((*head)->next == current) {
+            temp = *head;
+            *head = current;
+            (*head)->next = temp;
+            temp->next = NULL;
+        }
+        else {
+            temp = *head; 
+            *head = current;  
+            (*head)->next = temp->next;
+            index->next = temp;
+            temp->next = NULL;
+        }
+    }
+}
+
+void swapElements2(D_Node **head, D_Node **tail) {
+    if (*head == NULL || *tail == NULL || *head == *tail) {
+        return;
+    }
+
+    
+    D_Node *current = *head;
+    while (current != NULL) {
+        D_Node *temp = current->next;
+        current->next = current->prev;
+        current->prev = temp;
+
+        
+        current = temp;
+    }
+
+    D_Node *temp = *head;
+    *head = *tail;
+    *tail = temp;
+
+    
+}
+
+void ReversedisplayList(D_Node **head, D_Node **tail) {
+    D_Node *current;
+    if (*head == NULL)
+        printf("List is Empty!\n");
+    else {
+        current = *tail;
+        while (current != NULL) {
+            printf("%d ", current->data);
+            current = current->prev;
+        }
+    }
 }

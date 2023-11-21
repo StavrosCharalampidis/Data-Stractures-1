@@ -80,6 +80,13 @@ void swapElements2(struct node2 **head, struct node2 **tail) {
     }
 }
 
+void printList(struct node2* head) {
+    while (head != NULL) {
+        printf("%d ", head->number);
+        head = head->next;
+    }
+    printf("\n");
+}
 
 int main() {
     struct node2 *head, *tail;
@@ -90,11 +97,12 @@ int main() {
     addNodeDouble(&head, &tail, 3, 0);
     addNodeDouble(&head, &tail, 1, 1);
     addNodeDouble(&head, &tail, 7, 0);
+    printList(head);
 
     printf("\n\nDoubly linked list (reversed): ");
     ReversedisplayList(&head, &tail);
-    printf("Swap: ");
-    //swapElements2(&head, &tail);
+    //printf("Swap: ");
+    swapElements2(&head, &tail);
     printf("\nChanged list: ");
     swapElements2(&head, &tail);
     //ReversedisplayList(&head, &tail);

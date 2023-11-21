@@ -18,16 +18,18 @@ typedef struct Doubly_Linked_List
 } D_Node;
 
 
-void addNodeSingle(S_Node **head, int value, char * pos);
+void addNodeSingle(S_Node **head, int value, char *pos);
 void addDescending(S_Node **head, int value);
 void displayList(S_Node *head);
 int countList(S_Node *head);
 void deleteNode(S_Node **head, int delVal);
 void deleteFirst(S_Node **head);
 S_Node *appendLists(S_Node *head1, S_Node *head2);
+
+void addNodeDouble(D_Node **head, D_Node **tail, int value, char *pos);
 void swapElements1(S_Node **head);
-
-
+void swapElements2(S_Node **head, S_Node **tail);
+void ReversedisplayList(D_Node **head, D_Node **tail);
 
 
 int main(int argc, char const *argv[])
@@ -272,6 +274,32 @@ S_Node *appendLists(S_Node *head1, S_Node *head2) {
     return result;
 }
 
+void addNodeDouble(D_Node **head, D_Node **tail, int value, char *pos) {
+    D_Node *newDNode;
+    newDNode = (D_Node *) malloc(sizeof(D_Node));
+    newDNode -> data = value;
+
+    if (pos == "head") {
+        newDNode -> next = *head;
+        newDNode -> prev = NULL;
+        *head = newDNode;
+        newDNode -> next -> prev = newDNode;
+    }
+
+    else if (pos == "tail") {
+        D_Node *p = *head;
+
+        while(p -> next != NULL){
+            p = p -> next;
+        }
+
+        newDNode -> next = p -> next;
+        newDNode -> prev = p;
+        p -> next = newDNode;
+        *tail = newDNode;
+    }
+}
+
 void swapElements1(S_Node **head) {
     S_Node *current = *head, *temp = NULL, *index = NULL;
 
@@ -305,5 +333,17 @@ void swapElements1(S_Node **head) {
     }
 }
 
+void swapElements2(S_Node **head, S_Node **tail){}
 
-
+void ReversedisplayList(D_Node **head, D_Node **tail) {
+    D_Node *current;
+    if (*head == NULL)
+        printf("List is Empty!\n");
+    else {
+        current = *tail;
+        while (current != NULL) {
+            printf("%d ", current->data);
+            current = current->prev;
+        }
+    }
+}
