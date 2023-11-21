@@ -50,11 +50,11 @@ int main(int argc, char const *argv[])
     S_Node *SingleLinkList1, *SingleLinkList2 = NULL;
     D_Node *DoubleLinkList1, *DoubleLinkList2 = NULL;
 
-    createNode(&SingleLinkList1,6);
-    createNode(&SingleLinkList1,4);
-    createNode(&SingleLinkList1,9);
-    createNode(&SingleLinkList1,2);
-    createNode(&SingleLinkList1,3);
+    addNodeSingle(&SingleLinkList1,6,"head");
+    addNodeSingle(&SingleLinkList1,4,"head");
+    addNodeSingle(&SingleLinkList1,9,"head");
+    addNodeSingle(&SingleLinkList1,2,"head");
+    addNodeSingle(&SingleLinkList1,3,"head");
 
     addNodeSingle(&SingleLinkList1, 55,"head");
 
