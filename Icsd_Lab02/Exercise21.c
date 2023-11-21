@@ -1,4 +1,4 @@
-//icsd
+// icsd
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -41,7 +41,7 @@ void printList(D_Node *head);
 int main(int argc, char const *argv[]) {
     //gcc Icsd_Lab02/Exercise21.c -o main
     //./main
-    
+
     S_Node *singleLinkListHead1, *singleLinkListHead2 = NULL;
 
     addNodeSingle(&singleLinkListHead1, 6,"tail");
@@ -111,7 +111,7 @@ int main(int argc, char const *argv[]) {
     printf("\n");
 
     swapElements2(&DoubleLinkListHead, &DoubleLinkListTail);
-    printf("swapElements2: ");
+    printf("SwapElements2: ");
     printList(DoubleLinkListHead);
 
     // Απελευθέρωση της μνήμης που καταλαμβάνει η λίστα
