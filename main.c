@@ -43,8 +43,6 @@ void display(S_Node *node)
 
 int main(int argc, char const *argv[])
 {
-    // creating 4 pointers of type D_Node
-    // So these can point to address of struct type variable
     S_Node *head = NULL;
     S_Node *node2 = NULL;
     S_Node *node3 = NULL;
@@ -56,8 +54,8 @@ int main(int argc, char const *argv[])
     node3 = (S_Node *)malloc(sizeof(S_Node));
     node4 = (S_Node *)malloc(sizeof(S_Node));
 
-    head->data = 10;    // data set for head node
-    head->next = node2; // next pointer assigned to address of node2
+    head->data = 10;
+    head->next = node2;
 
     node2->data = 20;
     node2->next = node3;
