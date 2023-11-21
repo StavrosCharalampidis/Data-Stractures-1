@@ -1,7 +1,7 @@
 #!bin/bash
 
 git add vscode
-git commit -m "C Exercise"
+git commit -m "Extensions"
 git push -u origin Test
 
 for i in Icsd_Lab02/*
