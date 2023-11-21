@@ -1,94 +1,75 @@
-//icsd
-#include <stdlib.h>
-#include <stdio.h>
+#include<stdio.h>
+#include<stdlib.h>
 
-
-typedef struct Doubly_Linked_List
+/* Link list node */
+struct Node
 {
-    int data;
-    struct Doubly_Linked_List *next;
-    struct Doubly_Linked_List *prev;
-} D_Node;
+  int data;
+  struct Node *next;
+};
 
-void addNodeSingle(D_Node **head, int data, const char *position)
+/* Function to reverse the linked list */
+void reverseLinkedList (struct Node **head_addr)
 {
-    if (position == NULL || (*position != 'h' && *position != 't'))
+  struct Node *prev = NULL;
+  struct Node *current = *head_addr;
+  struct Node *next = NULL;
+  while (current != NULL)
     {
-        printf("Μη έγκυρη θέση. Χρησιμοποιήστε 'head' ή 'tail'.\n");
-        return;
+      // Store next 
+      next = current->next;
+
+      // Reverse current node's pointer 
+      current->next = prev;
+
+      // Move pointers one position ahead. 
+      prev = current;
+      current = next;
     }
+  *head_addr = prev;
+}
 
-    D_Node *newNode = (D_Node *)malloc(sizeof(D_Node));
-    if (newNode == NULL)
+/* Function to push a node */
+void insert (struct Node **head_addr, int new_data)
+{
+  struct Node *new_node = (struct Node *) malloc (sizeof (struct Node));
+  new_node->data = new_data;
+  new_node->next = (*head_addr);
+  (*head_addr) = new_node;
+}
+
+/* Function to print linked list */
+void display (struct Node *head)
+{
+  struct Node *temp = head;
+  while (temp != NULL)
     {
-        printf("Σφάλμα στην ανάθεση μνήμης για τον νέο κόμβο.\n");
-        return;
-    }
-
-    newNode->data = data;
-    newNode->next = NULL;
-
-    if (*head == NULL)
-    {
-        *head = newNode;
-    }
-    else
-    {
-        D_Node *current = *head;
-
-        if (*position == 'h')
-        {
-            newNode->next = *head;
-            *head = newNode;
-        }
-        else
-        {
-            while (current->next != NULL)
-            {
-                current = current->next;
-            }
-            current->next = newNode;
-        }
+      printf ("%d  ", temp->data);
+      temp = temp->next;
     }
 }
 
-
-void freeList(D_Node *head)
+int main ()
 {
-    while (head != NULL)
+  int i, n, data;
+  /* Start with the empty list */
+  struct Node *head = NULL;
+  printf ("Enter the number of nodes: ");
+  scanf ("%d", &n);
+  printf ("\nEnter the data in the nodes: ");
+  for (i = 0; i < n; i++)
     {
-        D_Node *temp = head;
-        head = head->next;
-        free(temp);
+      scanf ("%d", &data);
+      insert (&head, data);
     }
-}
 
+  printf ("\nGiven linked list: ");
+  reverseLinkedList (&head);
+  display (head);
 
-void printList(D_Node *head)
-{
-    while (head != NULL)
-    {
-        printf("%d ", head->data);
-        head = head->next;
-    }
-    printf("\n");
-}
+  printf ("\n\nReversed Linked list: ");
+  reverseLinkedList (&head);
+  display (head);
 
-
-int main(int argc, char const *argv[])
-{
-    D_Node *singleLinkListHead = NULL;
-
-    printf("Αρχική λίστα: ");
-
-    addNodeSingle(&singleLinkListHead, 2, "tail");
-    addNodeSingle(&singleLinkListHead, 5, "tail");
-    addNodeSingle(&singleLinkListHead, 3, "head");
-    addNodeSingle(&singleLinkListHead, 10, "tail");
-
-    printList(singleLinkListHead);
-
-    // Απελευθέρωση της μνήμης που καταλαμβάνει η λίστα
-    freeList(singleLinkListHead);
-    return 0;
+  return 0;
 }
