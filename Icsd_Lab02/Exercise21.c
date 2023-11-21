@@ -126,6 +126,23 @@ int main(int argc, char const *argv[])
     swapElements2(&DoubleLinkListHead, &DoubleLinkListTail);
     printf("Λίστα μετά την αντιστροφή: ");
     printList(DoubleLinkListHead);
+
+
+    int val = 0;
+    for (int i = 0; i < 10; i++) {
+        addNodeDouble(&DoubleLinkListHead, &DoubleLinkListTail, i,"head");
+        val = i;
+    }
+
+    int X = 0, Y = val;
+
+    printf("Before Swapping: ");
+    printList(DoubleLinkListHead);
+
+    swap(&DoubleLinkListHead, &DoubleLinkListTail, X, Y);
+    
+    printList("After Swapping: ");
+    printList(DoubleLinkListHead);
     // Απελευθέρωση της μνήμης που καταλαμβάνει η λίστα
     freeList(DoubleLinkListHead);
     
