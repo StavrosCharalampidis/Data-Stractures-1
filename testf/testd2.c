@@ -93,6 +93,10 @@ int main() {
     printf("Λίστα μετά την αντιστροφή: ");
     printList(head);
 
-    
+    while (head != NULL) {
+        struct Node* temp = head;
+        head = head->next;
+        free(temp);
+    }
     return 0;
 }
