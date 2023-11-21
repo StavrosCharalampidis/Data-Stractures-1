@@ -11,3 +11,7 @@ git push -u origin Test
 git add auto.sh
 git commit -m "📜 ⚙️ Automate shell script ⚙️ 📜"
 git push -u origin Test
+
+git add main
+git commit -m "🔨 ⚡⚙️ C Exe file ⚡⚙️ 🔨"
+git push -u origin Test
