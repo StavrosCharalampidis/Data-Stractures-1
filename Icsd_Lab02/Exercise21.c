@@ -29,6 +29,7 @@ S_Node *appendLists(S_Node *head1, S_Node *head2);
 void addNodeDouble(D_Node **head, D_Node **tail, int data, const char *position);
 void swapElements1(S_Node **head);
 void swapElements2(D_Node **head, D_Node **tail);
+D_Node **find(D_Node* head, D_Node *tail);
 void ReversedisplayList(D_Node **head, D_Node **tail);
 
 
@@ -127,22 +128,6 @@ int main(int argc, char const *argv[])
     printf("Λίστα μετά την αντιστροφή: ");
     printList(DoubleLinkListHead);
 
-
-    int val = 0;
-    for (int i = 0; i < 10; i++) {
-        addNodeDouble(&DoubleLinkListHead, &DoubleLinkListTail, i,"head");
-        val = i;
-    }
-
-    int X = 0, Y = val;
-
-    printf("Before Swapping: ");
-    printList(DoubleLinkListHead);
-
-    swap(&DoubleLinkListHead, &DoubleLinkListTail, X, Y);
-    
-    printList("After Swapping: ");
-    printList(DoubleLinkListHead);
     // Απελευθέρωση της μνήμης που καταλαμβάνει η λίστα
     freeList(DoubleLinkListHead);
     
@@ -402,27 +387,66 @@ void swapElements1(S_Node **head) {
 }
 
 void swapElements2(D_Node **head, D_Node **tail) {
-    if (*head == NULL || *tail == NULL || *head == *tail) {
+    if (*head == NULL || (*head)->next == NULL || (*head)->data == (*tail)->data){
         return;
     }
 
-    
-    D_Node *current = *head;
-    while (current != NULL) {
-        D_Node *temp = current->next;
-        current->next = current->prev;
-        current->prev = temp;
+    D_Node **p = find(*head, *tail);
+    D_Node *Node1 = p[0];
+    D_Node *Node2 = p[1];
 
-        
-        current = temp;
+    if (Node1 == *head){
+        *head = Node2;
     }
 
-    D_Node *temp = *head;
-    *head = *tail;
-    *tail = temp;
+    else if (Node2 == *head){
+        *head = Node1;
+    }
 
-    
+    if (Node1 == *tail){
+        *tail = Node2;
+    }
+
+    else if (Node2 == *tail){
+        *tail = Node1;
+    }
+
+    D_Node* temp;
+    temp = Node1->next;
+    Node1->next = Node2->next;
+    Node2->next = temp;
+
+    if (Node1->next != NULL){
+        Node1->next->prev = Node1;
+    }
+
+    if (Node2->next != NULL){
+        Node2->next->prev = Node2;
+    }
+
+    temp = Node1->prev;
+    Node1->prev = Node2->prev;
+    Node2->prev = temp;
+
+    if (Node1->prev != NULL){
+        Node1->prev->next = Node1;
+    }
+
+    if (Node2->prev != NULL){
+        Node2->prev->next = Node2;
+    }
+    free(p);
 }
+D_Node **find(D_Node* head, D_Node *tail) {
+    D_Node *N1 = head;
+    D_Node *N2 = tail;
+
+    D_Node **result = (D_Node **)malloc(2 * sizeof(D_Node*));
+    result[0] = N1;
+    result[1] = N2;
+    return result;
+}
+
 
 void ReversedisplayList(D_Node **head, D_Node **tail) {
     D_Node *current;
