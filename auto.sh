@@ -1,6 +1,6 @@
 #!bin/bash
 
-git add .vscode
+git add vscode
 git commit -m "C Exercise"
 git push -u origin Test
 
