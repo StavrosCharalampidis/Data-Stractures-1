@@ -39,6 +39,9 @@ void printList(D_Node *head);
 
 
 int main(int argc, char const *argv[]) {
+    //gcc Icsd_Lab02/Exercise21.c -o main
+    //./main
+    
     S_Node *singleLinkListHead1, *singleLinkListHead2 = NULL;
 
     addNodeSingle(&singleLinkListHead1, 6,"tail");
@@ -103,6 +106,7 @@ int main(int argc, char const *argv[]) {
 
     printList(DoubleLinkListHead);
     
+    printf("ReversedisplayList: ");
     ReversedisplayList(&DoubleLinkListHead, &DoubleLinkListTail);
     printf("\n");
 
