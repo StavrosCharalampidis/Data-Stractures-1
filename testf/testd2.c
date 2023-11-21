@@ -20,7 +20,7 @@ void swapElements2(struct Node** head, struct Node** tail) {
         return;
     }
 
-    // Αντιστροφή των δεικτών next και prev για όλους τους κόμβους
+    
     struct Node* current = *head;
     while (current != NULL) {
         struct Node* temp = current->next;
@@ -30,7 +30,7 @@ void swapElements2(struct Node** head, struct Node** tail) {
         current = temp;
     }
 
-    // Αντιμετάθεση των δεικτών κεφαλής και ουράς
+    
     struct Node* temp = *head;
     *head = *tail;
     *tail = temp;
@@ -88,15 +88,11 @@ int main() {
     addNodeDouble(&head, &tail, 1, 1);
     addNodeDouble(&head, &tail, 7, 0);
     printList(head);
-    
+
     swapElements2(&head, &tail);
     printf("Λίστα μετά την αντιστροφή: ");
     printList(head);
 
-    while (head != NULL) {
-        struct Node* temp = head;
-        head = head->next;
-        free(temp);
-    }
+    
     return 0;
 }
