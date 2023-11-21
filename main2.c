@@ -85,6 +85,7 @@ int main(int argc, char const *argv[])
     printf("New SLL: ");
     displayList(result);
 
+    printf("\n");
     S_Node *head = NULL;
     addNodeSingle(&head, 4,"head");
     addNodeSingle(&head, 9,"head");
@@ -92,12 +93,12 @@ int main(int argc, char const *argv[])
     addNodeSingle(&head, 3,"head");
     addNodeSingle(&head, 55,"head");
 
-    printf("Αρχική λίστα: ");
+    printf("Originals list: ");
     displayList(head);
     
     swapElements1(&head);
     
-    printf("Τροποποιημένη λίστα: ");
+    printf("New list: ");
     displayList(head);
 
     return 0;
@@ -272,21 +273,36 @@ S_Node *appendLists(S_Node *head1, S_Node *head2) {
 }
 
 void swapElements1(S_Node **head) {
-    if (*head == NULL || (*head)->next == NULL) {
+    S_Node *current = *head, *temp = NULL, *index = NULL;
+
+    if (*head == NULL) {
         return;
     }
-    
-    S_Node *prev = NULL;
-    S_Node *current = *head;
-    
-    while (current->next != NULL) {
-        prev = current;
-        current = current->next;
+
+    else {
+        while (current->next != NULL) {
+            index = current;
+            current = current->next;
+        }
+        
+        if (*head == current) {
+            return;
+        }
+        
+        else if ((*head)->next == current) {
+            temp = *head;
+            *head = current;
+            (*head)->next = temp;
+            temp->next = NULL;
+        }
+        else {
+            temp = *head; 
+            *head = current;  
+            (*head)->next = temp->next;
+            index->next = temp;
+            temp->next = NULL;
+        }
     }
-    
-    prev->next = NULL;
-    current->next = *head;
-    *head = current;
 }
 
 
