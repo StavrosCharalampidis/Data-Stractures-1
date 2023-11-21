@@ -27,22 +27,6 @@ S_Node *appendLists(S_Node *head1, S_Node *head2);
 
 
 
-void createNode(S_Node **head, int value)
-{
-    S_Node *newNode;
-    newNode = (S_Node *) malloc(sizeof(S_Node));
-    newNode->data=value;
-    if(*head==NULL)
-    {
-        newNode->next=NULL;
-        *head=newNode;
-    }
-    else
-    {
-        newNode->next=*head;
-        *head=newNode;
-    }
-}
 
 
 int main(int argc, char const *argv[])
@@ -50,25 +34,24 @@ int main(int argc, char const *argv[])
     S_Node *SingleLinkList1, *SingleLinkList2 = NULL;
     D_Node *DoubleLinkList1, *DoubleLinkList2 = NULL;
 
-    addNodeSingle(&SingleLinkList1,6,"head");
-    addNodeSingle(&SingleLinkList1,4,"head");
-    addNodeSingle(&SingleLinkList1,9,"head");
-    addNodeSingle(&SingleLinkList1,2,"head");
-    addNodeSingle(&SingleLinkList1,3,"head");
+    addNodeSingle(&SingleLinkList1, 6,"head");
 
-    addNodeSingle(&SingleLinkList1, 55,"head");
+    addNodeSingle(&SingleLinkList1, 4,"tail");
+    addNodeSingle(&SingleLinkList1, 9,"tail");
+    addNodeSingle(&SingleLinkList1, 2,"tail");
+    addNodeSingle(&SingleLinkList1, 3,"tail");
+    addNodeSingle(&SingleLinkList1, 55,"tail");
 
     displayList(SingleLinkList1);
     printf("%d count SingleLinkList1 \n", countList(SingleLinkList1));
 
-    createNode(&SingleLinkList2,45);
-    createNode(&SingleLinkList2,38);
-    createNode(&SingleLinkList2,24);
-    createNode(&SingleLinkList2,12);
-    createNode(&SingleLinkList2,8);
-
-
+    addNodeSingle(&SingleLinkList2, 45, "head");
+    addNodeSingle(&SingleLinkList2,38, "tail");
+    addNodeSingle(&SingleLinkList2,24, "tail");
+    addNodeSingle(&SingleLinkList2,12, "tail");
+    addNodeSingle(&SingleLinkList2,8, "tail");
     addNodeSingle(&SingleLinkList2, 61, "tail");
+
     addDescending(&SingleLinkList2,3);
     displayList(SingleLinkList2);
     printf("%d count SingleLinkList2 \n", countList(SingleLinkList2));
