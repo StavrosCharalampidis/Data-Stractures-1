@@ -85,6 +85,7 @@ int main(int argc, char const *argv[])
     addDescending(&head2, 60);
     addDescending(&head2, 80);
     addDescending(&head2, 109);
+    printf("SingleLinkList1: ");
     displayList(head2);
 
     addDescending(&head2, 5);
@@ -92,6 +93,7 @@ int main(int argc, char const *argv[])
     addDescending(&head1, 2);
     addDescending(&head1, 8);
     addDescending(&head1, 1);
+    printf("SingleLinkList2: ");
     displayList(head1);
 
     S_Node* result = appendLists(head1, head2);
