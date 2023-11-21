@@ -1,6 +1,6 @@
 #!bin/bash
 
-git add Icsd_Lab02/.
+git add Icsd_Lab02/*
 git commit -m "C Exercise"
 git push -u origin Test
 
