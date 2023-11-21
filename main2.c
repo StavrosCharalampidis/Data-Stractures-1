@@ -47,42 +47,37 @@ void createNode(S_Node **head, int value)
 
 int main(int argc, char const *argv[])
 {
-    S_Node *lista;
-    S_Node *l1;
-    lista=NULL;
-    l1=NULL;
+    S_Node *SingleLinkList1, *SingleLinkList2 = NULL;
+    D_Node *DoubleLinkList1, *DoubleLinkList2 = NULL;
 
-    D_Node *lista2, *lista2last;
-    lista2=NULL;
-    lista2last=NULL;
+    createNode(&SingleLinkList1,6);
+    createNode(&SingleLinkList1,4);
+    createNode(&SingleLinkList1,9);
+    createNode(&SingleLinkList1,2);
+    createNode(&SingleLinkList1,3);
 
-    createNode(&lista,6);
-    createNode(&lista,4);
-    createNode(&lista,9);
-    createNode(&lista,2);
-    createNode(&lista,3);
+    addNodeSingle(&SingleLinkList1, 55,"head");
 
-    addNodeSingle(&lista, 55,"head");
+    displayList(SingleLinkList1);
+    printf("%d count SingleLinkList1 \n", countList(SingleLinkList1));
 
-    displayList(lista);
-    printf("%d count lista \n", countList(lista));
-
-    createNode(&l1,45);
-    createNode(&l1,38);
-    createNode(&l1,24);
-    createNode(&l1,12);
-    createNode(&l1,8);
+    createNode(&SingleLinkList2,45);
+    createNode(&SingleLinkList2,38);
+    createNode(&SingleLinkList2,24);
+    createNode(&SingleLinkList2,12);
+    createNode(&SingleLinkList2,8);
 
 
-    addNodeSingle(&l1, 61, "tail");
-    addDescending(&l1,3);
-    displayList(l1);
-    printf("%d count li \n", countList(l1));
+    addNodeSingle(&SingleLinkList2, 61, "tail");
+    addDescending(&SingleLinkList2,3);
+    displayList(SingleLinkList2);
+    printf("%d count SingleLinkList2 \n", countList(SingleLinkList2));
 
-    deleteNode(&lista,55);
-    deleteFirst(&lista);
-    displayList(lista);
-    printf("uoei\n");
+    deleteNode(&SingleLinkList1,55);
+    deleteFirst(&SingleLinkList1);
+    displayList(SingleLinkList1);
+
+    printf("\n");
 
     S_Node *head1, *head2 = NULL;
     addDescending(&head2, 40);
