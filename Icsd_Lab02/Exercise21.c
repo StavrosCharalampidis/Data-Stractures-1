@@ -18,7 +18,7 @@ typedef struct Doubly_Linked_List
 } D_Node;
 
 
-void addNodeSingle(S_Node **head, int value, char *pos);
+void addNodeSingle(S_Node **head, int data, const char *position);
 void addDescending(S_Node **head, int value);
 void displayList(S_Node *head);
 int countList(S_Node *head);
@@ -58,9 +58,9 @@ int main(int argc, char const *argv[])
 {
     S_Node *singleLinkListHead1, *singleLinkListHead2 = NULL;
 
-    addNodeSingle(&singleLinkListHead1, 6,"head");
+    addNodeSingle(&singleLinkListHead1, 6,"tail");
 
-    addNodeSingle(&singleLinkListHead1, 4,"tail");
+    addNodeSingle(&singleLinkListHead1, 4,"head");
     addNodeSingle(&singleLinkListHead1, 9,"tail");
     addNodeSingle(&singleLinkListHead1, 2,"tail");
     addNodeSingle(&singleLinkListHead1, 3,"tail");
@@ -134,30 +134,46 @@ int main(int argc, char const *argv[])
 }
 
 
-void addNodeSingle(S_Node **head, int value, char * pos) {
-    S_Node *newNode;
-    newNode = (S_Node *) malloc (sizeof(S_Node));
-    newNode -> data = value;
+void addNodeSingle(S_Node **head, int data, const char *position) {
+    if (position == NULL || (*position != 'h' && *position != 't'))
+    {
+        printf("Μη έγκυρη θέση. Χρησιμοποιήστε 'head' ή 'tail'.\n");
+        return;
+    }
 
-    if(pos == "head") {
-        newNode -> next= *head;
+    S_Node *newNode = (S_Node *)malloc(sizeof(S_Node));
+    if (newNode == NULL)
+    {
+        printf("Σφάλμα στην ανάθεση μνήμης για τον νέο κόμβο.\n");
+        return;
+    }
+
+    newNode->data = data;
+    newNode->next = NULL;
+
+    if (*head == NULL)
+    {
         *head = newNode;
     }
+    else
+    {
+        S_Node *current = *head;
 
-    else if(pos == "tail") {
-        S_Node *p;
-        p = *head;
-
-        while(p -> next != NULL) {
-            p = p -> next;
+        if (*position == 'h')
+        {
+            newNode->next = *head;
+            *head = newNode;
         }
-
-        newNode -> next = p -> next;
-        p -> next = newNode;
-
+        else
+        {
+            while (current->next != NULL)
+            {
+                current = current->next;
+            }
+            current->next = newNode;
+        }
     }
 }
-
 
 void addDescending(S_Node **head, int value) {
     S_Node *newNode = (S_Node *)malloc(sizeof(S_Node));

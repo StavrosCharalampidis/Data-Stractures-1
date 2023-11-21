@@ -77,7 +77,7 @@ void printList(D_Node *head)
 
 int main(int argc, char const *argv[])
 {
-    struct Node *singleLinkListHead = NULL;
+    D_Node *singleLinkListHead = NULL;
 
     printf("Αρχική λίστα: ");
 
