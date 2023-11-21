@@ -40,8 +40,8 @@ void printList(D_Node *head);
 
 int main(int argc, char const *argv[]) {
     //gcc Icsd_Lab02/Exercise21.c -o main
-    //./main
-    
+    // ./main
+
     S_Node *singleLinkListHead1, *singleLinkListHead2 = NULL;
 
     addNodeSingle(&singleLinkListHead1, 6,"tail");
