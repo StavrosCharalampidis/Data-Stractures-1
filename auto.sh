@@ -15,3 +15,8 @@ git push -u origin Test
 git add main
 git commit -m "🔨 ⚡⚙️ C Exe file ⚡⚙️ 🔨"
 git push -u origin Test
+
+
+git add .
+git commit -m "Random Commits"
+git push -u origin Test
