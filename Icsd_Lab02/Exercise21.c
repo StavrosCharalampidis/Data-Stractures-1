@@ -114,7 +114,7 @@ int main(int argc, char const *argv[]) {
     printf("SwapElements2: ");
     printList(DoubleLinkListHead);
 
-    // Απελευθέρωση της μνήμης που καταλαμβάνει η λίστα
+   
     freeList(DoubleLinkListHead);
     
 
@@ -123,16 +123,14 @@ int main(int argc, char const *argv[]) {
 
 
 void addNodeSingle(S_Node **head, int data, const char *position) {
-    if (position == NULL || (*position != 'h' && *position != 't'))
-    {
-        printf("Μη έγκυρη θέση. Χρησιμοποιήστε 'head' ή 'tail'.\n");
+    if (position == NULL || (*position != 'h' && *position != 't')) {
+        printf("Mh egkurh thesh 'head' h 'tail'.\n");
         return;
     }
 
     S_Node *newNode = (S_Node *)malloc(sizeof(S_Node));
-    if (newNode == NULL)
-    {
-        printf("Σφάλμα στην ανάθεση μνήμης για τον νέο κόμβο.\n");
+    if (newNode == NULL) {
+        printf("sfalma sthn mnimi.\n");
         return;
     }
 
@@ -168,10 +166,7 @@ void addDescending(S_Node **head, int value) {
     newNode->data = value;
     newNode->next = NULL;
 
-    
-
-        if (*head == NULL)
-    {
+    if (*head == NULL) {
         *head = newNode;
         return;
     }
@@ -309,7 +304,7 @@ S_Node *appendLists(S_Node *head1, S_Node *head2) {
 void addNodeDouble(D_Node **head, D_Node **tail, int data, const char *position) {
     if (position == NULL || (*position != 'h' && *position != 't'))
     {
-        printf("Μη έγκυρη θέση. Χρησιμοποιήστε 'head' ή 'tail'.\n");
+        printf("Mh egkurh thesh 'head' h 'tail'.\n");
         return;
     }
 
