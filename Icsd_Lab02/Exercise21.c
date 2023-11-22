@@ -41,7 +41,7 @@ void printList(D_Node *head);
 int main(int argc, char const *argv[]) {
     //gcc Icsd_Lab02/Exercise21.c -o main
     //./main
-
+    
     S_Node *singleLinkListHead1, *singleLinkListHead2 = NULL;
 
     addNodeSingle(&singleLinkListHead1, 6,"tail");
@@ -134,58 +134,52 @@ void addNodeSingle(S_Node **head, int data, const char *position) {
         return;
     }
 
-    newNode->data = data;
-    newNode->next = NULL;
+    newNode -> data = data;
+    newNode -> next = NULL;
 
-    if (*head == NULL)
-    {
+    if (*head == NULL) {
         *head = newNode;
     }
-    else
-    {
+
+    else {
         S_Node *current = *head;
 
-        if (*position == 'h')
-        {
+        if (*position == 'h') {
             newNode->next = *head;
             *head = newNode;
         }
-        else
-        {
-            while (current->next != NULL)
-            {
-                current = current->next;
+        else {
+            while (current -> next != NULL) {
+                current = current -> next;
             }
-            current->next = newNode;
+            current -> next = newNode;
         }
     }
 }
 
 void addDescending(S_Node **head, int value) {
     S_Node *newNode = (S_Node *)malloc(sizeof(S_Node));
-    newNode->data = value;
-    newNode->next = NULL;
+    newNode -> data = value;
+    newNode -> next = NULL;
 
     if (*head == NULL) {
         *head = newNode;
         return;
     }
 
-    if ((*head)->data <= value)
-    {
-        newNode->next = *head;
+    if ((*head) -> data <= value) {
+        newNode -> next = *head;
         *head = newNode;
         return;
     }
 
     S_Node *current = *head;
-    while (current->next != NULL && current->next->data > value)
-    {
+    while (current -> next != NULL && current->next->data > value) {
         current = current->next;
     }
 
-    newNode->next = current->next;
-    current->next = newNode;
+    newNode -> next = current->next;
+    current -> next = newNode;
 }
 
 void displayList(S_Node *head) {
@@ -226,10 +220,10 @@ void deleteNode(S_Node **head, int delVal) {
         return;
     }
 
-    if (temp != NULL && temp->data == delVal)
+    if (temp != NULL && temp -> data == delVal)
     {
 
-        *head = temp->next;
+        *head = temp -> next;
 
         printf("Value %d, deleted \n", delVal);
 
@@ -237,10 +231,10 @@ void deleteNode(S_Node **head, int delVal) {
         return;
     }
 
-    while (temp != NULL && temp->data != delVal)
+    while (temp != NULL && temp -> data != delVal)
     {
         previous = temp;
-        temp = temp->next;
+        temp = temp -> next;
     }
 
     if (temp == NULL)
@@ -263,39 +257,35 @@ void deleteFirst(S_Node **head) {
         return;
     }
   
-    *head = (*head)->next;
-    printf ("Deleted: %d\n", temp->data);
+    *head = (*head) -> next;
+    printf ("Deleted: %d\n", temp -> data);
     free (temp);
 }
 
 S_Node *appendLists(S_Node *head1, S_Node *head2) {
     S_Node *result = NULL;
     S_Node **lastPtrRef = &result;
-    while (1)
-    {
-        if (head1 == NULL)
-        {
+
+    while (1) {
+        if (head1 == NULL) {
             *lastPtrRef = head2;
             break;
         }
-        else if (head2 == NULL)
-        {
+        else if (head2 == NULL) {
             *lastPtrRef = head1;
             break;
         }
 
-        if (head1->data >= head2->data)
-        {
+        if (head1 -> data >= head2 -> data) {
             *lastPtrRef = head1;
-            head1 = head1->next;
+            head1 = head1 -> next;
         }
-        else
-        {
+        else {
             *lastPtrRef = head2;
             head2 = head2->next;
         }
 
-        lastPtrRef = &((*lastPtrRef)->next);
+        lastPtrRef = &((*lastPtrRef) -> next);
     }
 
     return result;
@@ -313,20 +303,16 @@ void addNodeDouble(D_Node **head, D_Node **tail, int data, const char *position)
     newNode->next = NULL;
     newNode->prev = NULL;
 
-    if (*head == NULL)
-    {
+    if (*head == NULL) {
         *head = *tail = newNode;
     }
-    else
-    {
-        if (*position == 'h')
-        {
-            newNode->next = *head;
-            (*head)->prev = newNode;
+    else {
+        if (*position == 'h') {
+            newNode -> next = *head;
+            (*head) -> prev = newNode;
             *head = newNode;
         }
-        else
-        {
+        else {
             newNode->prev = *tail;
             (*tail)->next = newNode;
             *tail = newNode;
@@ -342,33 +328,33 @@ void swapElements1(S_Node **head) {
     }
 
     else {
-        while (current->next != NULL) {
+        while (current -> next != NULL) {
             index = current;
-            current = current->next;
+            current = current -> next;
         }
         
         if (*head == current) {
             return;
         }
         
-        else if ((*head)->next == current) {
+        else if ((*head) -> next == current) {
             temp = *head;
             *head = current;
-            (*head)->next = temp;
-            temp->next = NULL;
+            (*head) -> next = temp;
+            temp -> next = NULL;
         }
         else {
             temp = *head; 
             *head = current;  
-            (*head)->next = temp->next;
-            index->next = temp;
-            temp->next = NULL;
+            (*head) -> next = temp -> next;
+            index -> next = temp;
+            temp -> next = NULL;
         }
     }
 }
 
 void swapElements2(D_Node **head, D_Node **tail) {
-    if (*head == NULL || (*head)->next == NULL || (*head)->data == (*tail)->data){
+    if (*head == NULL || (*head) -> next == NULL || (*head) -> data == (*tail) -> data){
         return;
     }
 
@@ -376,46 +362,47 @@ void swapElements2(D_Node **head, D_Node **tail) {
     D_Node *Node1 = p[0];
     D_Node *Node2 = p[1];
 
-    if (Node1 == *head){
+    if (Node1 == *head) {
         *head = Node2;
     }
 
-    else if (Node2 == *head){
+    else if (Node2 == *head) {
         *head = Node1;
     }
 
-    if (Node1 == *tail){
+    if (Node1 == *tail) {
         *tail = Node2;
     }
 
-    else if (Node2 == *tail){
+    else if (Node2 == *tail) {
         *tail = Node1;
     }
 
     D_Node* temp;
-    temp = Node1->next;
-    Node1->next = Node2->next;
-    Node2->next = temp;
+    temp = Node1 -> next;
+    Node1 -> next = Node2 -> next;
+    Node2 -> next = temp;
 
-    if (Node1->next != NULL){
-        Node1->next->prev = Node1;
+    if (Node1 -> next != NULL) {
+        Node1 -> next -> prev = Node1;
     }
 
-    if (Node2->next != NULL){
-        Node2->next->prev = Node2;
+    if (Node2 -> next != NULL) {
+        Node2 -> next -> prev = Node2;
     }
 
-    temp = Node1->prev;
-    Node1->prev = Node2->prev;
-    Node2->prev = temp;
+    temp = Node1 -> prev;
+    Node1 -> prev = Node2 -> prev;
+    Node2 -> prev = temp;
 
-    if (Node1->prev != NULL){
-        Node1->prev->next = Node1;
+    if (Node1 -> prev != NULL) {
+        Node1 -> prev -> next = Node1;
     }
 
-    if (Node2->prev != NULL){
-        Node2->prev->next = Node2;
+    if (Node2 -> prev != NULL) {
+        Node2 -> prev -> next = Node2;
     }
+
     free(p);
 }
 D_Node **find(D_Node* head, D_Node *tail) {
@@ -431,29 +418,28 @@ D_Node **find(D_Node* head, D_Node *tail) {
 
 void ReversedisplayList(D_Node **head, D_Node **tail) {
     D_Node *current;
-    if (*head == NULL)
+    if (*head == NULL){
         printf("List is Empty!\n");
+    }
     else {
         current = *tail;
         while (current != NULL) {
-            printf("%d ", current->data);
-            current = current->prev;
+            printf("%d ", current -> data);
+            current = current -> prev;
         }
     }
 }
 
 void freeList(D_Node *head) {
-    while (head != NULL)
-    {
+    while (head != NULL) {
         D_Node *temp = head;
-        head = head->next;
+        head = head -> next;
         free(temp);
     }
 }
 
 void printList(D_Node *head) {
-    while (head != NULL)
-    {
+    while (head != NULL) {
         printf("%d ", head->data);
         head = head->next;
     }
