@@ -78,6 +78,7 @@ int main() {
                 displaySongsByArtist(&library);
                 break;
             case 9:
+                printf("Exiting program...\n");
                 displaySongsByGenre(&library);
                 break;
             
