@@ -3,6 +3,10 @@
 #include <string.h>
 
 #define N 10
+typedef struct Music_Library {
+    int count;
+    Music_Song* head;
+} Music_Library;
 
 typedef struct Music_Song {
     char title[N];
@@ -12,11 +16,6 @@ typedef struct Music_Song {
     struct Music_Song* tail;
 } Music_Song;
 
-typedef struct Doubly_Linked_List {
-    int count;
-    Music_Song* head;
-    Music_Song* tail;
-} Music_Library;
 
 // Function prototypes
 void addSong(Music_Library* library);
@@ -178,7 +177,8 @@ void deleteSong(Music_Library *library, const char* title){
 };
 
 void displayLibrary(Music_Library *library){
-    Music_Song *current = library;
+    //Music_Song *current = library;
+    Music_Song *current = library->head;
     while (current != NULL) {
         printf("Title: %s\n", current->title);
         printf("Artist: %s\n", current->artist);
