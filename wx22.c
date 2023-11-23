@@ -1,7 +1,7 @@
-// icsd
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+
 #define N 10
 
 typedef struct Music_Song {
@@ -14,21 +14,21 @@ typedef struct Music_Song {
 
 typedef struct Doubly_Linked_List {
     int count;
-    Music_Song *head;
-    Music_Song *tail;
+    Music_Song* head;
+    Music_Song* tail;
 } Music_Library;
 
-// Πρωτότυπα συναρτήσεων
-//void initLibrary(Music_Library *library);
-void addSong(Music_Library *library);
-void searchSong(Music_Library *library, const char* title);
-void deleteSong(Music_Library *library, const char* title);
-void deleteSongsByArtist(Music_Library *library, const char* artist);
-void displayNumOfSongs(Music_Library *library);
-void displayLibrary(Music_Library *library);
-void displayTotalDuration(Music_Library *library);
-void displaySongsByArtist(Music_Library *library, const char *artist);
-void displaySongsByGenre(Music_Library *library, const char *genre);
+// Function prototypes
+void addSong(Music_Library* library);
+void searchSong(Music_Library* library, const char* title);
+void deleteSong(Music_Library* library, const char* title);
+void deleteSongsByArtist(Music_Library* library, const char* artist);
+void displayNumOfSongs(Music_Library* library);
+void displayLibrary(Music_Library* library);
+void displayTotalDuration(Music_Library* library);
+void displaySongsByArtist(Music_Library* library, const char* artist);
+void displaySongsByGenre(Music_Library* library, const char* genre);
+
 
 int main(int argc, char const *argv[]) {
     int choice;
@@ -56,8 +56,7 @@ int main(int argc, char const *argv[]) {
         scanf("%d", &choice);
 
         switch (choice) {
-            case 1:
-                
+            case 1:   
                 addSong(&library);
                 break;
             case 2:
@@ -91,6 +90,7 @@ int main(int argc, char const *argv[]) {
                 break;
             case 9:
                 printf("Enter genre to display music by: ");
+                scanf("%s", song->genre);
                 displaySongsByGenre(&library, song->genre);
                 break;
             
@@ -103,7 +103,6 @@ int main(int argc, char const *argv[]) {
 
     return 0;
 }
-
 
 void addSong(Music_Library *library){
     Music_Song *newNode = (Music_Song *) malloc(sizeof(Music_Song));
@@ -147,7 +146,7 @@ void searchSong(Music_Library *library, const char* title){
             printf("Title: %s\n", current->title);
             printf("Artist: %s\n", current->artist);
             printf("Genre: %s\n", current->genre);
-            printf("Duration: %d seconds\n", current->duration);
+            printf("Duration: %f seconds\n", current->duration);
             return;
         }
         current = current->tail;
@@ -178,83 +177,99 @@ void deleteSong(Music_Library *library, const char* title){
     printf("Song with title '%s' not found. Cannot delete.\n", title);
 };
 
-void deleteSongsByArtist(Music_Library *library, const char* artist){
-    Music_Song *current1 = library;
-    Music_Library *current = library;
-    while (current != NULL) {
-        if (strcmp(artist, current1->artist) == 0) {
-            if (current->head != NULL) {
-                current->head->tail = current->tail;
-            } else {
-                library = current->tail;
-            }
-            if (current->tail != NULL) {
-                current->tail->tail = current->head;
-            }
-            free(current);
-            current = library;
-        } else {
-            current = current->tail;
-        }
-    }
-
-    printf("Music deleted.\n");
-};
-
-void displayNumOfSongs(Music_Library *library){
-    int totalSongs = 0;
-    Music_Library *current = library;
-    while (current != NULL) {
-        totalSongs += current->count;
-        current = current->tail;
-        printf("total Songs: %d\n", totalSongs);
-    }
-    printf("");
-};
-
 void displayLibrary(Music_Library *library){
     Music_Song *current = library;
     while (current != NULL) {
         printf("Title: %s\n", current->title);
         printf("Artist: %s\n", current->artist);
         printf("Genre: %s\n", current->genre);
-        printf("Duration: %d seconds\n", current->duration);
+        printf("Duration: %f seconds\n", current->duration);
         printf("-----------------------\n");
         current = current->tail;
     }
 };
 
-void displayTotalDuration(Music_Library *library){
+void deleteSongsByArtist(Music_Library* library, const char* artist) {
+    Music_Song* current = library->head;
+    Music_Song* prev = NULL;
+
+    while (current != NULL) {
+        if (strcmp(current->artist, artist) == 0) {
+            if (prev == NULL) {
+                library->head = current->tail;
+            } else {
+                prev->tail = current->tail;
+            }
+            free(current);
+            current = library->head;
+        } else {
+            prev = current;
+            current = current->tail;
+        }
+    }
+
+    printf("Songs by artist '%s' deleted.\n", artist);
+}
+
+void displayNumOfSongs(Music_Library* library) {
+    int totalSongs = 0;
+    Music_Song* current = library->head;
+
+    while (current != NULL) {
+        totalSongs++;
+        current = current->tail;
+    }
+
+    printf("Total Songs: %d\n", totalSongs);
+}
+
+
+void displayTotalDuration(Music_Library* library) {
     double totalDuration = 0;
-    Music_Song *current = library;
+    Music_Song* current = library->head;
+
     while (current != NULL) {
         totalDuration += current->duration;
         current = current->tail;
-        printf("total Duration: %lf seconds\n", totalDuration);
     }
-    printf("");
-};
 
-void displaySongsByArtist(Music_Library *library, const char *artist){
-    Music_Song *current = library;
+    printf("Total Duration: %lf seconds\n", totalDuration);
+}
+
+void displaySongsByArtist(Music_Library* library, const char* artist) {
+    Music_Song* current = library->head;
+    int found = 0;
+
     while (current != NULL) {
-        if(strcmp(current->artist, artist) == 0){
+        if (strcmp(current->artist, artist) == 0) {
+            printf("Title: %s\n", current->title);
+            printf("Genre: %s\n", current->genre);
+            printf("Duration: %lf seconds\n", current->duration);
+            found = 1;
+        }
+        current = current->tail;
+    }
+
+    if (!found) {
+        printf("No songs found for artist '%s'.\n", artist);
+    }
+}
+
+void displaySongsByGenre(Music_Library* library, const char* genre) {
+    Music_Song* current = library->head;
+    int found = 0;
+
+    while (current != NULL) {
+        if (strcmp(current->genre, genre) == 0) {
+            printf("Title: %s\n", current->title);
             printf("Artist: %s\n", current->artist);
-            return;
+            printf("Duration: %lf seconds\n", current->duration);
+            found = 1;
         }
-        current = current->tail;          
+        current = current->tail;
     }
-    printf("Song with Artist '%s' not found.\n", artist);
-};
 
-void displaySongsByGenre(Music_Library *library, const char *genre){
-    Music_Song *current = library;
-    while (current != NULL) {
-        if(strcmp(current->artist, genre) == 0){
-            printf("Artist: %s\n", current->genre);
-            return;
-        }
-        current = current->tail;          
+    if (!found) {
+        printf("No songs found for genre '%s'.\n", genre);
     }
-    printf("Song with Artist '%s' not found.\n", genre);
-};
+}
