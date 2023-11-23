@@ -3,11 +3,6 @@
 #include <string.h>
 
 #define N 10
-typedef struct Music_Library {
-    int count;
-    Music_Song* head;
-} Music_Library;
-
 typedef struct Music_Song {
     char title[N];
     char artist[N];
@@ -15,6 +10,12 @@ typedef struct Music_Song {
     double duration;
     struct Music_Song* tail;
 } Music_Song;
+
+typedef struct Music_Library {
+    int count;
+    Music_Song* head;
+} Music_Library;
+
 
 
 // Function prototypes
@@ -37,7 +38,6 @@ int main(int argc, char const *argv[]) {
         printf("Memory allocation error.\n");
         return 1;
     }
-    //initLibrary(&library);
     
     while (1) {
         printf("\n=== ΜΟΥΣΙΚΗ ΒΙΒΛΙΟΘΗΚΗ ===\n");
