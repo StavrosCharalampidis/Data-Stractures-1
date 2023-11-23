@@ -90,8 +90,6 @@ void undoLastPurchase(ShoppingCart *cart) {
     }
 }
 
-
-
 // Συνάρτηση για εμφάνιση πληροφοριών του καλαθιού αγορών
 void displayCartInfo(ShoppingCart *cart) {
     if (cart->top != NULL) {
