@@ -18,7 +18,7 @@ typedef struct Doubly_Linked_List
     struct Doubly_Linked_List *prev;
 } D_Node;
 
-// ypografes sinartiseon 
+// Function prototypes
 void addNodeSingle(S_Node **head, int data, const char *position);
 void addDescending(S_Node **head, int value);
 void displayList(S_Node *head);
@@ -39,124 +39,26 @@ void printList(D_Node *head);
 int main(int argc, char const *argv[]) {
     //orismos singleLinkListHeadSwap
     S_Node *singleLinkListHeadSwap = NULL;
+
+
+
     //prosthiki se kombo me basi to head h tail
-    addNodeSingle(&singleLinkListHeadSwap, 49, "head");
-    addNodeSingle(&singleLinkListHeadSwap,3, "tail");
-    addNodeSingle(&singleLinkListHeadSwap,23, "head");
-    addNodeSingle(&singleLinkListHeadSwap,9, "tail");
+    addNodeSingle(&singleLinkListHeadSwap, 45, "head");
+    addNodeSingle(&singleLinkListHeadSwap,38, "tail");
+    addNodeSingle(&singleLinkListHeadSwap,24, "tail");
     addNodeSingle(&singleLinkListHeadSwap,12, "tail");
-    addNodeSingle(&singleLinkListHeadSwap, 6, "head");
-    //befor swapElements
-    printf("befor : ");
+    addNodeSingle(&singleLinkListHeadSwap,8, "tail");
+    addNodeSingle(&singleLinkListHeadSwap, 61, "tail");
+    //befor
+    printf("befor: ");
     displayList(singleLinkListHeadSwap);
     //alagi tou head sto telos kai to teleuteo sto proto
-    printf("SwapElements1: ");
     swapElements1(&singleLinkListHeadSwap);
+    printf("SwapElements1: ");
     displayList(singleLinkListHeadSwap);
 
-    printf("\n");
-    //orismos singleLinkListHeads
-    S_Node *singleLinkListHead1, *singleLinkListHead2 = NULL;
-
-    //prosthiki se kombo me basi to head h tail
-    addNodeSingle(&singleLinkListHead1, 6,"tail");
-    addNodeSingle(&singleLinkListHead1, 4,"head");
-    addNodeSingle(&singleLinkListHead1, 9,"tail");
-    addNodeSingle(&singleLinkListHead1, 2,"tail");
-    addNodeSingle(&singleLinkListHead1, 3,"tail");
-    addNodeSingle(&singleLinkListHead1, 55,"tail");
-
-    //ektiposi tis singleLinkListHead1
-    printf("singleLinkListHead1: ");
-    displayList(singleLinkListHead1);
-    printf("Count %d singleLinkListHead1 \n", countList(singleLinkListHead1));
-
-    //prosthiki se kombo me basi to head h tail
-    addNodeSingle(&singleLinkListHead2, 45, "head");
-    addNodeSingle(&singleLinkListHead2,38, "tail");
-    addNodeSingle(&singleLinkListHead2,24, "tail");
-    addNodeSingle(&singleLinkListHead2,12, "tail");
-    addNodeSingle(&singleLinkListHead2,8, "tail");
-    addNodeSingle(&singleLinkListHead2, 61, "tail");
-
-    //ektiposi tis singleLinkListHead2
-    printf("singleLinkListHead2: ");
-    displayList(singleLinkListHead2);
-
-    //ektiposi tou countList 
-    printf("Count %d singleLinkListHead2 \n", countList(singleLinkListHead2));
-
-    //diagrafi kombou
-    deleteNode(&singleLinkListHead1,55);
-
-    //diagrafi protou kombou
-    deleteFirst(&singleLinkListHead1);
-
-    //ektiposi tis singleLinkListHead1
-    printf("singleLinkListHead1: ");
-    displayList(singleLinkListHead1);
-
-    printf("\n");
 
 
-    //orismos Heads
-    S_Node *head1, *head2 = NULL;
-
-    //prosthiki se kombo me fthinousa sira
-    addDescending(&head1, 40);
-    addDescending(&head1, 25);
-    addDescending(&head1, 60);
-    addDescending(&head1, 80);
-    addDescending(&head1, 109);
-
-    //ektiposi tis head1
-    printf("singleLinkListHead1: ");
-    displayList(head1);
-
-    //prosthiki se kombo me fthinousa sira
-    addDescending(&head2, 5);
-    addDescending(&head2, 20);
-    addDescending(&head2, 2);
-    addDescending(&head2, 8);
-    addDescending(&head2, 1);
-
-    //ektiposi tis head2
-    printf("singleLinkListHead2: ");
-    displayList(head2);
-
-    //enosi dion single linked list 
-    S_Node* result = appendLists(head1, head2);
-
-    //ektiposi tis enosis
-    printf("New singleLinkList: ");
-    displayList(result);
-
-    //orismos DoubleLinkListHead kai DoubleLinkListTail
-    D_Node *DoubleLinkListHead, *DoubleLinkListTail = NULL;
-
-    //prosthiki se kombo me basi to head h tail
-    printf("DoubleLinkListHead: ");
-    addNodeDouble(&DoubleLinkListHead, &DoubleLinkListTail, 2, "tail");
-    addNodeDouble(&DoubleLinkListHead, &DoubleLinkListTail, 5, "tail");
-    addNodeDouble(&DoubleLinkListHead, &DoubleLinkListTail, 3, "head");
-    addNodeDouble(&DoubleLinkListHead, &DoubleLinkListTail, 10, "tail");
-
-    //ektiposi tis listas
-    printList(DoubleLinkListHead);
-    
-    //ektiposi tis listas anapoda
-    printf("ReversedisplayList: ");
-    ReversedisplayList(&DoubleLinkListHead, &DoubleLinkListTail);
-    printf("\n");
-
-
-    //allazi to head me to tail diladi o protos komvos paei sto telos kai o teleutos ston proto
-    swapElements2(&DoubleLinkListHead, &DoubleLinkListTail);
-    printf("SwapElements2: ");
-    printList(DoubleLinkListHead);
-
-   
-    freeList(DoubleLinkListHead);
     
 
     return 0;
@@ -359,7 +261,6 @@ void addNodeDouble(D_Node **head, D_Node **tail, int data, const char *position)
         }
     }
 }
-
 
 void swapElements1(S_Node **head) {
     S_Node *current = *head, *temp = NULL, *index = NULL;

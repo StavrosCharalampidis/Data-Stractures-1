@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+//Ylopoihsh Music Song
 typedef struct Music_Song {
     char title[100];
     char artist[100];
@@ -11,11 +12,12 @@ typedef struct Music_Song {
     struct Music_Song* prev;
 } Music_Song;
 
+//Ylopoihsh Music Library
 typedef struct Music_Library {
     Music_Song* head;
 } Music_Library;
 
-// Function prototypes
+//Ypografes sinartiseon
 void addSong(Music_Library* library);
 void searchSong(Music_Library* library, const char* title);
 void deleteSong(Music_Library* library, const char* title);
@@ -117,7 +119,7 @@ void addSong(Music_Library* library) {
 
     printf("Enter music title to add: ");
     scanf("%s", new_node->title);
-    // Έλεγχος για τον τίτλο
+    // elegxos gia titlo
     Music_Song* current = library->head;
     while (current != NULL) {
         if (strcmp(current->title, new_node->title) == 0) {
