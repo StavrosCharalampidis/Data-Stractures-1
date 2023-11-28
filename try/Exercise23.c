@@ -4,10 +4,16 @@
 
 // Δομή για κάθε προϊόν
 typedef struct Product {
-    char name[50];
+    char product[50];
     float value;
     struct Product *next;
 } Product;
+
+typedef struct value {
+    float value[50];
+    struct value *next;
+} value;
+
 
 // Δομή για το καλάθι αγορών
 typedef struct ShoppingCart {
@@ -15,7 +21,7 @@ typedef struct ShoppingCart {
     Product *top;
 } ShoppingCart;
 
-void buyProduct(ShoppingCart *cart, const char *name, float value);
+void buyProduct(ShoppingCart *cart, const char *product, float value);
 void undoLastPurchase(ShoppingCart *cart);
 void undoLastPurchase(ShoppingCart *cart);
 void displayCartInfo(ShoppingCart *cart);
@@ -35,16 +41,16 @@ int main() {
         scanf("%s", action);
 
         if (strcmp(action, "BUY") == 0) {
-            product.name;
+            product.product;
             float value;
 
             printf("Εισάγετε όνομα προϊόντος: ");
-            scanf("%s", product.name);
+            scanf("%s", product.product);
 
             printf("Εισάγετε τιμή προϊόντος: ");
             scanf("%f", &value);
 
-            buyProduct(&cart, product.name, value);
+            buyProduct(&cart, product.product, value);
         } else if (strcmp(action, "UNDO") == 0) {
             undoLastPurchase(&cart);
         } else if (strcmp(action, "END") != 0) {
@@ -62,19 +68,19 @@ int main() {
 
 
 // Συνάρτηση για εισαγωγή προϊόντος στο καλάθι
-void buyProduct(ShoppingCart *cart, const char *name, float value) {
+void buyProduct(ShoppingCart *cart, const char *product, float value) {
     Product *newProduct = (Product *)malloc(sizeof(Product));
     if (newProduct == NULL) {
         printf("Memory allocation error.\n");
         exit(1);
     }
 
-    strcpy(newProduct->name, name);
-    newProduct->value = value;
+    strcpy(newProduct->product, product);
+    //newProduct->value = value;
     newProduct->next = cart->top;
     cart->top = newProduct;
 
-    printf("Προστέθηκε στο καλάθι αγορών: %s, Τιμή: %.2f\n", name, value);
+    printf("Προστέθηκε στο καλάθι αγορών: %s, Τιμή: %.2f\n", product, value);
 }
 
 
@@ -83,7 +89,7 @@ void undoLastPurchase(ShoppingCart *cart) {
     if (cart->top != NULL) {
         Product *temp = cart->top;
         cart->top = temp->next;
-        printf("Αφαιρέθηκε από το καλάθι αγορών: %s, Τιμή: %.2f\n", temp->name, temp->value);
+        printf("Αφαιρέθηκε από το καλάθι αγορών: %s, Τιμή: %.2f\n", temp->product, temp->value);
         free(temp);
     } else {
         printf("Το καλάθι αγορών είναι άδειο.\n");

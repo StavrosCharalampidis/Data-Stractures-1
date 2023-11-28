@@ -18,34 +18,10 @@ typedef struct Music_Library {
 
 void addSong1(Music_Library **head, Music_Library **tail, const char * position);
 
-void print(Music_Library **head, Music_Library **tail);
+void print(Music_Library *head);
 
-// Function prototypes
-void addSong(Music_Library* library);
-void searchSong(Music_Library* library, const char* title);
-void deleteSong(Music_Library* library, const char* title);
-void deleteSongsByArtist(Music_Library* library, const char* artist);
-void displayNumOfSongs(Music_Library* library);
-void displayLibrary(Music_Library* library);
-void displayTotalDuration(Music_Library* library);
-void displaySongsByArtist(Music_Library* library, const char* artist);
-void displaySongsByGenre(Music_Library* library, const char* genre);
 int main(int argc, char const *argv[]) {
     
-   
-        printf("\n=== ΜΟΥΣΙΚΗ ΒΙΒΛΙΟΘΗΚΗ ===\n");
-        printf("1. Εισαγωγή μουσικού κομματιού\n");
-        printf("2. Αναζήτηση και εμφάνιση στοιχείων μουσικού κομματιού\n");
-        printf("3. Διαγραφή μουσικού κομματιού\n");
-        printf("4. Διαγραφή μουσικών κομματιών με βάση τον τραγουδιστή\n");
-        printf("5. Εμφάνιση πλήθους μουσικών κομματιών\n");
-        printf("6. Εμφάνιση ολόκληρης της μουσικής βιβλιοθήκης\n");
-        printf("7. Εμφάνιση συνολικής διάρκειας όλων των μουσικών κομματιών\n");
-        printf("8. Εμφάνιση όλων των μουσικών κομματιών ενός τραγουδιστή\n");
-        printf("9. Εμφάνιση όλων των μουσικών κομματιών συγκεκριμένου είδους\n");
-        printf("10. Έξοδος\n");
-        printf("Επιλέξτε μια επιλογή: ");
-        //scanf("%d", &choice);
         Music_Library *song = (Music_Library *) malloc(sizeof(Music_Library));
         if (song == NULL) {
             printf("Memory allocation error.\n");
@@ -54,7 +30,8 @@ int main(int argc, char const *argv[]) {
         Music_Library *head = NULL;
         Music_Library *tail = NULL;
         addSong1(&head, &tail,"head");
-        print(&head, &tail);
+        addSong1(&head, &tail,"head");
+        print(head);
         return 0;
 }
 void addSong1(Music_Library **head, Music_Library **tail, const char * position){
@@ -99,7 +76,7 @@ void addSong1(Music_Library **head, Music_Library **tail, const char * position)
        
         if (strcmp(position, "head") == 0) {
             newNode -> prev = NULL;
-            newNode -> next = *head;
+            (*head) = newNode -> next;
             (*head) -> prev = newNode;
             *head = newNode;
             return; 
@@ -117,20 +94,15 @@ void addSong1(Music_Library **head, Music_Library **tail, const char * position)
 }
 
 
-void print(Music_Library **head, Music_Library **tail) {
-    Music_Library *current;
-    if (*head == NULL){
-        printf("List is Empty!\n");
-    }
-    else {
-        current = *tail;
-        while (current != NULL) {
-            printf("Title: %s\n", current->title);
-            printf("Artist: %s\n", current->artist);
-            printf("Genre: %s\n", current->genre);
-            printf("Duration: %f seconds\n", current->duration);
+void print(Music_Library *head) {
+    while (head != NULL) {
+            head = head ->prev;
+            printf("Title: %s\n", head->title);
+            printf("Artist: %s\n", head->artist);
+            printf("Genre: %s\n", head->genre);
+            printf("Duration: %f seconds\n", head->duration);
             printf("-----------------------\n");
-            current = current -> prev;
+            head = head -> next;
         }
-    }
 }
+
