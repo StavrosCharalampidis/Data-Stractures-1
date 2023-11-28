@@ -6,29 +6,29 @@
 #define QUEUE_SIZE 30
 
 typedef struct {
-    char name[QUEUE_SIZE];
+    char name[50];
     int clientNumber;
     int entranceTime;
-    int front, rear, count;
-
 } Customer;
 
-
 Customer queue[QUEUE_SIZE];
+int front = 0;
+int rear = 0;
+int count = 0;
 
 void enqueue(Customer customer) {
-    if (customer.count == QUEUE_SIZE) {
+    if (count == QUEUE_SIZE) {
         printf("Queue is full. Cannot add customer.\n");
         return;
     }
-    queue[customer.rear] = customer;
-    customer.rear = (customer.rear + 1) % QUEUE_SIZE;
-    customer.count++;
+    queue[rear] = customer;
+    rear = (rear + 1) % QUEUE_SIZE;
+    count++;
     printf("Customer %s entered the queue.\n", customer.name);
 }
 
-void dequeue(Customer customer) {
-    if (customer.count == 0) {
+Customer dequeue() {
+    if (count == 0) {
         printf("Queue is empty. No customer to remove.\n");
         Customer emptyCustomer;
         strcpy(emptyCustomer.name, "");
@@ -36,23 +36,23 @@ void dequeue(Customer customer) {
         emptyCustomer.entranceTime = -1;
         return emptyCustomer;
     }
-    customer = queue[customer.front];
-    customer.front = (customer.front + 1) % QUEUE_SIZE;
-    customer.count--;
+    Customer customer = queue[front];
+    front = (front + 1) % QUEUE_SIZE;
+    count--;
     printf("Customer %s exited the queue.\n", customer.name);
     return customer;
 }
 
-void displayCustomers(Customer customer) {
+void displayCustomers() {
     printf("%-10s %-15s %-10s\n", "Number", "Name", "EntranceTime");
-    for (int i = 0; i < customer.count; i++) {
-        int index = (customer.front + i) % QUEUE_SIZE;
+    for (int i = 0; i < count; i++) {
+        int index = (front + i) % QUEUE_SIZE;
         printf("%-10d %-15s %-10d\n", queue[index].clientNumber, queue[index].name, queue[index].entranceTime);
     }
 }
 
-int getCustomerCount(Customer customer) {
-    return customer.count;
+int getCustomerCount() {
+    return count;
 }
 
 int main() {
@@ -72,7 +72,7 @@ int main() {
         scanf("%d", &choice);
 
         Customer customer;
-        customer.front = customer.rear = customer.count = 0;
+        
         switch (choice) {
             case 1:
                 printf("Enter customer name: ");
@@ -82,13 +82,13 @@ int main() {
                 enqueue(customer);
                 break;
             case 2:
-                dequeue(customer);
+                customer = dequeue();
                 break;
             case 3:
-                displayCustomers(customer);
+                displayCustomers();
                 break;
             case 4:
-                printf("Number of customers in the queue: %d\n", getCustomerCount(customer));
+                printf("Number of customers in the queue: %d\n", getCustomerCount());
                 break;
             case 0:
                 printf("Exiting program...\n");
