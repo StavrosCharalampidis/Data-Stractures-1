@@ -3,76 +3,91 @@
 
 struct Node
 {
-    int data;
-    struct Node *next;
+  int data;
+  struct Node *next;
 };
 
-struct Node *head = NULL;
+void insertEnd(struct Node** head, int data){
+    
+    // since this will be the last node so it will point to NULL
+    struct Node* newNode = (struct Node*) malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->next = NULL;
 
-void push(int val)
-{
-    //create new node
-    struct Node *newNode = malloc(sizeof(struct Node));
-    newNode->data = val;
-
-    //make the new node points to the head node
-    newNode->next = head;
-
-    //make the new node as head node
-    //so that head will always point the last inserted data
-    head = newNode;
-}
-
-void pop()
-{
-    //temp is used to free the head node
-    struct Node *temp;
-
-    if(head == NULL)
-        printf("Stack is Empty\n");
-    else
-    {
-        printf("Poped element = %d\n", head->data);
-
-        //backup the head node
-        temp = head;
-
-        //make the head node points to the next node.
-        //logically removing the node
-        head = head->next;
-
-        //free the poped element's memory
-        free(temp);
+    // if Linked List is empty its is first node being entered
+    if(*head == NULL){
+        *head = newNode;
+        return;
     }
+
+    // otherwise find the current last node
+    
+    // create another variable to traverse the LL
+    // *head should not be used as we do not want to change head
+    struct Node* temp = *head;
+    
+    // traverse to the last node of Linked List
+    while(temp->next!=NULL)
+        temp = temp->next;
+    
+    // assign last node's next to this newNode
+    temp->next = newNode;
+
 }
 
-//print the linked list
-void display()
+void deleteStart (struct Node **head)
 {
-    struct Node *temp = head;
+  struct Node *temp = *head;
 
-    //iterate the entire linked list and print the data
-    while(temp != NULL)
+  // if there are no nodes in Linked List can't delete
+  if (*head == NULL)
     {
-         printf("%d->", temp->data);
-         temp = temp->next;
+      printf ("Linked List Empty, nothing to delete");
+      return;
     }
-    printf("NULL\n");
+
+  // move head to next node
+  *head = (*head)->next;
+  printf ("Deleted: %d\n", temp->data);
+  free (temp);
 }
 
-int main()
+void display (struct Node *node)
 {
-    push(10);
-    push(20);
-    push(30);
-    printf("Linked List\n");
-    display();
-    pop();
-    printf("After the pop, the new linked list\n");
-    display();
-    pop();
-    printf("After the pop, the new linked list\n");
-    display();
 
-    return 0;
+  // as linked list will end when Node is Null
+  while (node != NULL)
+    {
+      printf ("%d ", node->data);
+      node = node->next;
+    }
+  printf ("\n");
+}
+
+
+
+///////////////////////////////
+
+
+
+int main ()
+{
+
+  struct Node *head = NULL;
+
+  printf ("Linked List: ");
+  insertEnd (&head, 6);
+  insertEnd (&head, 5);
+  //deleteStart (&head);
+
+  insertEnd (&head, 4);
+  insertEnd (&head, 3);
+  insertEnd (&head, 2);
+  insertEnd (&head, 1);
+  insertEnd (&head, 10);
+  deleteStart (&head);
+
+  display (head);
+
+  return 0;
 }

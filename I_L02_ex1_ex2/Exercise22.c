@@ -10,6 +10,9 @@ typedef struct Music_Song {
     char genre[MAX_LENGTH];
     double duration;
     struct Music_Song* tail;
+
+    struct Music_Song *next;
+    struct Music_Song *prev;
 } Music_Song;
 
 typedef struct Music_Library {
