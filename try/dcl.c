@@ -24,8 +24,9 @@ void enqueue(Customer customer) {
         printf("Queue is full. Cannot add customer.\n");
         return;
     }
-    rear = (rear + 1) % QUEUE_SIZE;
     queue[rear] = customer;
+    rear = (rear + 1) % QUEUE_SIZE;
+    
     count++;
     printf("Customer %s entered the queue.\n", customer.name);
 }
@@ -79,9 +80,9 @@ int main() {
         switch (choice) {
             case 1:
                 printf("Enter customer name: ");
-                scanf(" %[^\n]s", customer.name);
+                scanf(" %s", customer.name);
                 customer.clientNumber = clientNumber++;
-                customer.entranceTime = time(NULL);
+                customer.entranceTime = rand() % 10 + 1;
                 enqueue(customer);
                 break;
             case 2:
