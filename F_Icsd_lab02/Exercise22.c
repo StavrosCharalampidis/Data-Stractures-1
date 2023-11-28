@@ -2,21 +2,114 @@
 #include <stdlib.h>
 #include <string.h>
 
-struct MusicNode {
+typedef struct Music_Song {
     char title[100];
     char artist[100];
     char genre[100];
     double duration;
-    struct MusicNode* next;
-    struct MusicNode* prev;
-};
+    struct Music_Song* next;
+    struct Music_Song* prev;
+} Music_Song;
 
-struct MusicLibrary {
-    struct MusicNode* head;
-};
+typedef struct Music_Library {
+    Music_Song* head;
+} Music_Library;
 
-void insert_music(struct MusicLibrary* library) {
-    struct MusicNode *new_node = (struct MusicNode *) malloc(sizeof(struct MusicNode));
+// Function prototypes
+void addSong(Music_Library* library);
+void searchSong(Music_Library* library, const char* title);
+void deleteSong(Music_Library* library, const char* title);
+void deleteSongsByArtist(Music_Library* library, const char* artist);
+int displayNumOfSongs(Music_Library* library);
+void displayLibrary(Music_Library* library);
+int displayTotalDuration(Music_Library* library);
+void displaySongsByArtist(Music_Library* library, const char* artist);
+void displaySongsByGenre(Music_Library* library, const char* genre);
+
+
+
+int main() {
+    
+
+    //
+    int choice;
+    Music_Library library;
+    (library).head = NULL;
+    Music_Song *song = (Music_Song *) malloc(sizeof(Music_Song));
+
+    if (song == NULL) {
+        printf("Memory allocation error.\n");
+        return 1;
+    }
+    
+    while (1) {
+        printf("\n=== ΜΟΥΣΙΚΗ ΒΙΒΛΙΟΘΗΚΗ ===\n");
+        printf("1. Εισαγωγή μουσικού κομματιού\n");
+        printf("2. Αναζήτηση και εμφάνιση στοιχείων μουσικού κομματιού\n");
+        printf("3. Διαγραφή μουσικού κομματιού\n");
+        printf("4. Διαγραφή μουσικών κομματιών με βάση τον τραγουδιστή\n");
+        printf("5. Εμφάνιση πλήθους μουσικών κομματιών\n");
+        printf("6. Εμφάνιση ολόκληρης της μουσικής βιβλιοθήκης\n");
+        printf("7. Εμφάνιση συνολικής διάρκειας όλων των μουσικών κομματιών\n");
+        printf("8. Εμφάνιση όλων των μουσικών κομματιών ενός τραγουδιστή\n");
+        printf("9. Εμφάνιση όλων των μουσικών κομματιών συγκεκριμένου είδους\n");
+        printf("10. Έξοδος\n");
+        printf("Επιλέξτε μια επιλογή: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:   
+                addSong(&library);
+                break;
+            case 2:
+                printf("Enter music title to search: ");
+                scanf("%s", song->title);
+                searchSong(&library, song->title);
+                break;
+            case 3:
+                printf("Enter music title to delete: ");
+                scanf("%s", song->title);
+                deleteSong(&library, song->title);
+                break;
+            case 4:
+                printf("Enter artist to delete music by: ");
+                scanf("%s", song->artist);
+                deleteSongsByArtist(&library, song->artist);
+                break;
+            case 5:
+                printf("\nTotal number of songs in the library: %d\n", displayNumOfSongs(&library));
+                break;
+            case 6:
+                displayLibrary(&library);
+                break;
+            case 7:
+                
+                printf("Total duration of all songs: %d\n", displayTotalDuration(&library));
+                break;
+            case 8:
+                printf("Enter artist to display music by: ");
+                scanf("%s", song->artist);
+                displaySongsByArtist(&library, song->artist);
+                break;
+            case 9:
+                printf("Enter genre to display music by: ");
+                scanf("%s", song->genre);
+                displaySongsByGenre(&library, song->genre);
+                break;
+            
+            case 10:
+                printf("Exiting program...\n");
+                exit(0);
+                break;
+        }
+    }
+
+    return 0;
+}
+
+
+void addSong(Music_Library* library) {
+    Music_Song *new_node = (Music_Song *) malloc(sizeof(Music_Song));
     if (new_node == NULL) {
         printf("Memory allocation error.\n");
         return;
@@ -25,7 +118,7 @@ void insert_music(struct MusicLibrary* library) {
     printf("Enter music title to add: ");
     scanf("%s", new_node->title);
     // Έλεγχος για τον τίτλο
-    struct MusicNode* current = library->head;
+    Music_Song* current = library->head;
     while (current != NULL) {
         if (strcmp(current->title, new_node->title) == 0) {
             printf("Song with the same title already exists. Cannot add.\n");
@@ -41,14 +134,13 @@ void insert_music(struct MusicLibrary* library) {
     scanf("%s", new_node->genre);
     printf("Enter duration (in seconds): ");
     scanf("%lf", &new_node->duration);
-    //new_node->duration = duration;
     new_node->next = NULL;
     new_node->prev = NULL;
 
     if (library->head == NULL) {
         library->head = new_node;
     } else {
-        struct MusicNode* current = library->head;
+        Music_Song* current = library->head;
         
 
         while (current->next && strcmp(new_node->title, current->title) > 0) {
@@ -71,8 +163,8 @@ void insert_music(struct MusicLibrary* library) {
     }
 }
 
-void search_music(struct MusicLibrary* library, const char* title) {
-    struct MusicNode* current = library->head;
+void searchSong(Music_Library* library, const char* title) {
+    Music_Song* current = library->head;
     int found = 0;
     while (current) {
         if (strcasecmp(title, current->title) == 0) {
@@ -80,17 +172,17 @@ void search_music(struct MusicLibrary* library, const char* title) {
             printf("Artist: %s\n",current->artist);
             printf("Genre: %s\n", current->genre);
             printf("Duration: %lf seconds\n", current->duration);
-            
+            found = 1;
         }
         current = current->next;
     }
-    if (!found) {
+if (!found) {
         printf("No songs found for artist '%s'.\n", title);
     }
 }
 
-void displaySongsByArtist(struct MusicLibrary* library, const char* artist) {
-    struct MusicNode* current = library->head;
+void displaySongsByArtist(Music_Library* library, const char* artist) {
+    Music_Song* current = library->head;
     int found = 0;
 
     while (current) {
@@ -108,20 +200,27 @@ void displaySongsByArtist(struct MusicLibrary* library, const char* artist) {
     }
 }
 
+void displaySongsByGenre(Music_Library* library, const char* genre) {
+    Music_Song* current = library->head;
+    int found = 0;
 
-struct MusicNode* SearchMusic(struct MusicLibrary* library, const char* title) {
-    struct MusicNode* current = library->head;
     while (current) {
-        if (strcasecmp(title, current->title) == 0) {
-            return current;
+        if (strcmp(current->genre, genre) == 0) {
+            printf("Title: %s\n", current->title);
+            printf("Artist: %s\n", current->artist);
+            printf("Duration: %lf seconds\n", current->duration);
+            found = 1;
         }
         current = current->next;
     }
-    return NULL;
+
+    if (!found) {
+        printf("No songs found for artist '%s'.\n", genre);
+    }
 }
 
-void delete_music(struct MusicLibrary* library, const char* title) {
-    struct MusicNode* current = library->head;
+void deleteSong(Music_Library* library, const char* title) {
+    Music_Song* current = library->head;
     while (current) {
         if (strstr(current->title, title) != NULL) {
             if (current->prev) {
@@ -134,17 +233,20 @@ void delete_music(struct MusicLibrary* library, const char* title) {
                 current->next->prev = current->prev;
             }
 
-            struct MusicNode* temp = current;
+            Music_Song* temp = current;
             current = current->next;
             free(temp);
+            printf("Song with title '%s' deleted.\n", title);
         } else {
             current = current->next;
+            printf("Song with title '%s' not found. Cannot delete.\n", title);
         }
     }
+    
 }
 
-void delete_by_artist(struct MusicLibrary* library, const char* artist) {
-    struct MusicNode* current = library->head;
+void deleteSongsByArtist(Music_Library* library, const char* artist) {
+    Music_Song* current = library->head;
     while (current) {
         if (strstr(current->artist, artist) != NULL) {
             if (current->prev) {
@@ -157,18 +259,21 @@ void delete_by_artist(struct MusicLibrary* library, const char* artist) {
                 current->next->prev = current->prev;
             }
 
-            struct MusicNode* temp = current;
+            Music_Song* temp = current;
             current = current->next;
             free(temp);
+            printf("Song with title '%s' deleted.\n", artist);
         } else {
             current = current->next;
+            printf("Song with title '%s' not found. Cannot delete.\n", artist);
         }
     }
+     
 }
 
-int count_music(struct MusicLibrary* library) {
+int displayNumOfSongs(Music_Library* library) {
     int count = 0;
-    struct MusicNode* current = library->head;
+    Music_Song* current = library->head;
     while (current) {
         count++;
         current = current->next;
@@ -176,17 +281,19 @@ int count_music(struct MusicLibrary* library) {
     return count;
 }
 
-void display_library(struct MusicLibrary* library) {
-    struct MusicNode* current = library->head;
+
+
+void displayLibrary(Music_Library* library) {
+    Music_Song* current = library->head;
     while (current) {
         printf("Title: %s, Artist: %s, Genre: %s, Duration: %lf\n", current->title, current->artist, current->genre, current->duration);
         current = current->next;
     }
 }
 
-int total_duration(struct MusicLibrary* library) {
+int displayTotalDuration(Music_Library* library) {
     int total = 0;
-    struct MusicNode* current = library->head;
+    Music_Song* current = library->head;
     while (current) {
         total += current->duration;
         current = current->next;
@@ -194,54 +301,3 @@ int total_duration(struct MusicLibrary* library) {
     return total;
 }
 
-int main() {
-    struct MusicLibrary library;
-    
-    (library).head = NULL;
-
-
-    // Έλεγχος για τον τίτλο
-    
-
-    // printf("Enter artist: ");
-    // scanf("%s", s->artist);
-    // printf("Enter genre: ");
-    // scanf("%s", s->genre);
-    // printf("Enter duration (in seconds): ");
-    // scanf("%lf", &s->duration);
-
-    // insert_music(&library, s->title, s->artist, s->genre, s->duration);
-    // insert_music(&library, s->title, s->artist, s->genre, s->duration);
-    // insert_music(&library, s->title, s->artist, s->genre, s->duration);
-    insert_music(&library);
-    insert_music(&library);
-    //display_library(&library);
-
-    // printf("\nSearch for 'Ain’t No Sunshine':\n");
-    // struct MusicNode* result = search_music(&library, "motto");
-    // if (result) {
-    //     printf("Title: %s, Artist: %s, Genre: %s, Duration: %lf\n", result->title, result->artist, result->genre, result->duration);
-    // } else {
-    //     printf("Music not found.\n");
-    // }
-    //
-    // struct MusicNode *song = (struct MusicNode *) malloc(sizeof(struct MusicNode));
-    // printf("Enter artist to display music by: ");
-    // scanf("%s", song->artist);
-    // displaySongsByArtist(&library, song->artist);
-    
-
-    //
-    printf("\nDelete motto:\n");
-    delete_music(&library, "motto");
-    display_library(&library);
-
-    // printf("\nDelete songs by artist nf:\n");
-    // delete_by_artist(&library, "nf");
-    // display_library(&library);
-
-    printf("\nTotal number of songs in the library: %d\n", count_music(&library));
-    printf("Total duration of all songs: %d\n", total_duration(&library));
-
-    return 0;
-}
