@@ -1,6 +1,3 @@
-//Christos Charalampidis icsd21071 
-//Stavros Charalampidis icsd22239
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -48,16 +45,16 @@ int main() {
     while (1) {
         printf("\n=== Music Library ===\n");
         printf("1. Eisagwgi mousikou kommatiou\n");
-        printf("2. Anazitisi kai emfanish stoixeiwn mousikou kommatiou\n");
-        printf("3. Diagrafi mousikou kommatiou\n");
-        printf("4. Diagrafi mousikwn kommatiwn me vasi ton tragoudisth\n");
-        printf("5. Emfanish plithous mousikwn kommatiwn\n");
-        printf("6. Emfanish olokliris tis mousikhs vivliothikis\n");
-        printf("7. Emfanish synolikhs diarkeias olwn twn mousikwn kommatiwn\n");
-        printf("8. Emfanish olwn twn mousikwn kommatiwn enos tragoudisth\n");
-        printf("9. Emfanish olwn twn mousikwn kommatiwn sygkekrimenou eidous\n");
-        printf("10. eksodos\n");
-        printf("Epilekste mia epilogh: ");
+        printf("2. Αναζήτηση και εμφάνιση στοιχείων μουσικού κομματιού\n");
+        printf("3. Διαγραφή μουσικού κομματιού\n");
+        printf("4. Διαγραφή μουσικών κομματιών με βάση τον τραγουδιστή\n");
+        printf("5. Εμφάνιση πλήθους μουσικών κομματιών\n");
+        printf("6. Εμφάνιση ολόκληρης της μουσικής βιβλιοθήκης\n");
+        printf("7. Εμφάνιση συνολικής διάρκειας όλων των μουσικών κομματιών\n");
+        printf("8. Εμφάνιση όλων των μουσικών κομματιών ενός τραγουδιστή\n");
+        printf("9. Εμφάνιση όλων των μουσικών κομματιών συγκεκριμένου είδους\n");
+        printf("10. Έξοδος\n");
+        printf("Επιλέξτε μια επιλογή: ");
         scanf("%d", &choice);
 
         switch (choice) {

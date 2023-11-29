@@ -1,6 +1,3 @@
-//Christos Charalampidis icsd21071 
-//Stavros Charalampidis icsd22239
-
 #include <stdio.h>
 #include <string.h>
 
@@ -20,7 +17,7 @@ int main() {
 
     do
     {
-        printf("Eisagwgh (BUY, UNDO, END): ");
+        printf("Εισαγωγή ενέργειας (BUY, UNDO, END): ");
         scanf("%s", action);
 
         if (strcmp(action, "BUY") == 0)
@@ -28,10 +25,10 @@ int main() {
             char name[50];
             float price;
 
-            printf("Eisagwgh omona proiovtos: ");
+            printf("Εισαγωγή ονομασίας προϊόντος: ");
             scanf("%s", name);
 
-            printf("Eisagwgh timis proiovtos: ");
+            printf("Εισαγωγή τιμής προϊόντος: ");
             scanf("%f", &price);
 
             push(name, price);
@@ -42,14 +39,14 @@ int main() {
         }
         else if (strcmp(action, "END") != 0)
         {
-            printf("lathos energia prospathiste ksana.\n");
+            printf("Μη έγκυρη ενέργεια. Προσπαθήστε ξανά.\n");
         }
     } while (strcmp(action, "END") != 0);
 
     // Έλεγχος αν το καλάθι είναι άδειο
     if (top == -1)
     {
-        printf("den exeis kamia agora\n");
+        printf("Δεν πραγματοποιήθηκαν αγορές\n");
     }
     else
     {
@@ -60,8 +57,8 @@ int main() {
             totalValue += value[i];
         }
 
-        printf("Plithos proiovtos: %d\n", top + 1);
-        printf("Suvolikh aksia: %.2f\n", totalValue);
+        printf("Πλήθος προϊόντων: %d\n", top + 1);
+        printf("Συνολική αξία: %.2f\n", totalValue);
 
         // Έλεγχος για διαδοχικές αναιρέσεις
         int undoCount = 0;
@@ -76,7 +73,7 @@ int main() {
 
         if (undoCount > 0)
         {
-            printf("ekaves %d diadoxikes agores\n", undoCount);
+            printf("Πραγματοποιήθηκαν %d διαδοχικές αναιρέσεις αγορών\n", undoCount);
         }
     }
 
@@ -91,11 +88,11 @@ void push(char name[], float price)
         top++;
         strcpy(product[top], name);
         value[top] = price;
-        printf("%s prosthethike sto kalathi me timi %.2f\n", name, price);
+        printf("%s προστέθηκε στο καλάθι με τιμή %.2f\n", name, price);
     }
     else
     {
-        printf("to kalathi einai gemato\n");
+        printf("Το καλάθι αγορών είναι γεμάτο\n");
     }
 }
 
@@ -104,11 +101,11 @@ void pop()
 {
     if (top >= 0)
     {
-        printf("%s aferesi apo to kalathi\n", product[top]);
+        printf("%s αφαιρέθηκε από το καλάθι\n", product[top]);
         top--;
     }
     else
     {
-        printf("to kalathi einai adio\n");
+        printf("Το καλάθι αγορών είναι άδειο\n");
     }
 }
