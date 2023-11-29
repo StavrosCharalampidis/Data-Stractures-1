@@ -353,25 +353,28 @@ void swapElements1(S_Node **head) {
 }
 
 void swapElements2(D_Node **head, D_Node **tail) {
-    D_Node *newHead = (D_Node *)malloc(sizeof(D_Node));
-    D_Node *newTail = newHead;
-    D_Node *current = *head;
-
-    while (current != NULL) {
-        D_Node *newNode = (D_Node *)malloc(sizeof(D_Node));
-        newNode->data = current->data;
-        newNode->next = NULL;
-        newNode->prev = newTail;
-
-        newTail->next = newNode;
-        newTail = newNode;
-
-        current = current->next;
+    if (*head==NULL || (*head)->next==NULL) {
+        printf("The list must have at least two nodes to swap.");
+        return;
     }
 
-    *head = newHead->next;
-    (*head)->prev = NULL;
-    *tail = newTail;
+    D_Node *temphead, *temptail;
+    
+    temphead = (*head)->next;
+    temptail = (*tail)->prev;
+
+    (*head)->next=NULL; 
+    (*tail)->prev=NULL; 
+
+    (*head)->prev=temptail;
+    (*tail)->next=temphead;
+
+    temptail->next=(*head);
+    temphead->prev=(*tail);
+
+    (*tail)=temptail->next;
+    (*head)=temphead->prev;
+
 }
 
 
