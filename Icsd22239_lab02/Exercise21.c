@@ -46,8 +46,8 @@ int main(int argc, char const *argv[]) {
     addNodeSingle(&singleLinkListHeadSwap,9, "tail");
     addNodeSingle(&singleLinkListHeadSwap,12, "tail");
     addNodeSingle(&singleLinkListHeadSwap, 6, "head");
-    //befor swapElements
-    printf("befor : ");
+    //before swapElements
+    printf("before swap: ");
     displayList(singleLinkListHeadSwap);
     //alagi tou head sto telos kai to teleuteo sto proto
     printf("SwapElements1: ");
