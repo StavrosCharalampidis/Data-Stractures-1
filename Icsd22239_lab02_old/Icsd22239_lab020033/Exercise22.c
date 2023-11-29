@@ -242,7 +242,7 @@ void deleteSong(Music_Library* library, const char* title) {
             printf("Song with title '%s' deleted.\n", title);
         } else {
             current = current->next;
-            
+            printf("Song with title '%s' not found. Cannot delete.\n", title);
         }
     }
     
@@ -268,7 +268,7 @@ void deleteSongsByArtist(Music_Library* library, const char* artist) {
             printf("Song with title '%s' deleted.\n", artist);
         } else {
             current = current->next;
-            
+            printf("Song with title '%s' not found. Cannot delete.\n", artist);
         }
     }
      
