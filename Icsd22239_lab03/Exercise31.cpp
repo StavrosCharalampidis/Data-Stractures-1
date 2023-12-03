@@ -14,6 +14,11 @@ class Node {
             this->Right = NULL;
         };
 
+        Node(){
+            this->Left = NULL;
+            this->Right = NULL;
+        };
+
         Node<T> * insert_node(Node<T> **root, T User_ID) {
             if (*root == NULL) {
                 Node<T> *new_node = new Node<T>(User_ID);
@@ -107,25 +112,48 @@ class Node {
 
     
 
-int main(int argc, char const *argv[])
-{
-    Node<int> *root = new Node<int>(10);
-    (*root).insert_node(&root, 20);
-    (*root).insert_node(&root, 0);
-    (*root).insert_node(&root, 60);
-    printf("inorder \n");
-    (*root).inorder(root);
-    printf("\npreorder \n");
-    (*root).printPreOrder(root);
-    printf("\n");
+int main(int argc, char const *argv[]) {
+    Node<int> *root = new Node<int>();
+    int choice, val;
+    std::cout << "Give choice: " << std::endl;
+    std::cin >> choice;
 
-    printf("Delete \n");
-    (*root).Delete (root, 10);
-    printf("inorder \n");
-    (*root).inorder(root);
+    while (choice != 0) {
+        
+        if (choice == 1) {
+            std::cout << "Give data: " << std::endl;
+            std::cin >> val;
+            (*root).insert_node(&root, val);
+        }
 
-    printf("\npreorder \n");
-    (*root).printPreOrder(root);
-    printf("\n");
+        if (choice == 2) {
+            printf("\npreorder \n");
+            (*root).printPreOrder(root);
+        }
+        
+        
+
+        std::cout << "Give choice: " << std::endl;
+        std::cin >> choice;
+    }
+
+
+    // (*root).insert_node(&root, 20);
+    // (*root).insert_node(&root, 0);
+    // (*root).insert_node(&root, 60);
+    // printf("inorder \n");
+    // (*root).inorder(root);
+    // printf("\npreorder \n");
+    // (*root).printPreOrder(root);
+    // printf("\n");
+
+    // printf("Delete \n");
+    // (*root).Delete (root, 10);
+    // printf("inorder \n");
+    // (*root).inorder(root);
+
+    // printf("\npreorder \n");
+    // (*root).printPreOrder(root);
+    // printf("\n");
     return 0;
 }
