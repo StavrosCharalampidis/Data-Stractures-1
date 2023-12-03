@@ -1,43 +1,43 @@
 
 #include <iostream>
 
-
 template <typename T>
-class Node {
+class BinaryNode {
     private:
+
         T User_ID;
-        Node<T> *Left, *Right;
+        BinaryNode<T> *Left, *Right;
 
     public:
-        Node(T User_ID){
+        BinaryNode(T User_ID){
             this->User_ID = User_ID;
             this->Left = NULL;
             this->Right = NULL;
         };
 
-        Node(){
+        BinaryNode(){
             this->Left = NULL;
             this->Right = NULL;
         };
 
-        Node<T> * insert_node(Node<T> **root, T User_ID) {
+        BinaryNode<T> * insert_BinaryNode(BinaryNode<T> **root, T User_ID) {
             if (*root == NULL) {
-                Node<T> *new_node = new Node<T>(User_ID);
-                new_node->Left = NULL;
-                new_node->Right = NULL;
-                return new_node;
+                BinaryNode<T> *new_BinaryNode = new BinaryNode<T>(User_ID);
+                new_BinaryNode->Left = NULL;
+                new_BinaryNode->Right = NULL;
+                return new_BinaryNode;
             }
 
             if (User_ID < (*root)->User_ID) {
-            (*root)->Left = insert_node(&(*root)->Left, User_ID);
+            (*root)->Left = insert_BinaryNode(&(*root)->Left, User_ID);
             }
             else {
-            (*root)->Right = insert_node(&(*root)->Right, User_ID);
+            (*root)->Right = insert_BinaryNode(&(*root)->Right, User_ID);
             }
             return *root;
         }
 
-        void inorder(Node<T> *root) {
+        void inorder(BinaryNode<T> *root) {
             if (root == NULL){
                 return;
             }
@@ -48,7 +48,7 @@ class Node {
             
         }
 
-        void printPreOrder(Node<T> *root){
+        void printPreOrder(BinaryNode<T> *root){
             if (root == NULL){
                 return;
             }
@@ -60,10 +60,10 @@ class Node {
 
         }
 
-        Node<T> * Delete(Node<T> *root, T User_ID) {
+        BinaryNode<T> * Delete(BinaryNode<T> *root, T User_ID) {
 
             if (root == NULL) {
-                std::cout << "Node not found ";
+                std::cout << "BinaryNode not found ";
                 return NULL;
             }
 
@@ -78,19 +78,19 @@ class Node {
             else {
 
                 if (root->Left == NULL) {
-                    Node<T> *temp = root->Right;
+                    BinaryNode<T> *temp = root->Right;
                     free(root);
                     return temp;
                 }
 
                 else if (root->Right == NULL) {
-                    Node<T> *temp = root->Left;
+                    BinaryNode<T> *temp = root->Left;
                     free(root);
                     return temp;
                 }
 
                 else {
-                    Node<T> *temp = root->Right;
+                    BinaryNode<T> *temp = root->Right;
 
                     while (temp->Left != NULL){
                         temp = temp->Left;
@@ -113,7 +113,7 @@ class Node {
     
 
 int main(int argc, char const *argv[]) {
-    Node<int> *root = new Node<int>();
+    BinaryNode<int> *root = new BinaryNode<int>();
     
 
     int choice, val, del_val;
@@ -126,7 +126,7 @@ int main(int argc, char const *argv[]) {
             std::cout << "Give data: " << std::endl;
             std::cin >> val;
             
-            (*root).insert_node(&root, val);
+            (*root).insert_BinaryNode(&root, val);
         }
 
         if (choice == 2) {
