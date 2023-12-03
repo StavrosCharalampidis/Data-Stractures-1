@@ -4,29 +4,29 @@
 template <typename T>
 class Node {
     private:
-        T data;
+        T User_ID;
         Node<T> *Left, *Right;
 
     public:
-        Node(T val){
-            this->data = val;
+        Node(T User_ID){
+            this->User_ID = User_ID;
             this->Left = NULL;
             this->Right = NULL;
         };
 
-        Node<T> * insert_node(Node<T> **root, T data) {
+        Node<T> * insert_node(Node<T> **root, T User_ID) {
             if (*root == NULL) {
-                Node<T> *new_node = new Node<T>(data);
+                Node<T> *new_node = new Node<T>(User_ID);
                 new_node->Left = NULL;
                 new_node->Right = NULL;
                 return new_node;
             }
 
-            if (data < (*root)->data) {
-            (*root)->Left = insert_node(&(*root)->Left, data);
+            if (User_ID < (*root)->User_ID) {
+            (*root)->Left = insert_node(&(*root)->Left, User_ID);
             }
             else {
-            (*root)->Right = insert_node(&(*root)->Right, data);
+            (*root)->Right = insert_node(&(*root)->Right, User_ID);
             }
             return *root;
         }
@@ -37,7 +37,7 @@ class Node {
             }
             
             inorder(root->Left);
-            printf("%d ", root->data);
+            printf("%d ", root->User_ID);
             inorder(root->Right);
             
         }
@@ -47,26 +47,26 @@ class Node {
                 return;
             }
             
-            printf("%d ", root->data);
+            printf("%d ", root->User_ID);
             printPreOrder(root->Left);
             printPreOrder(root->Right);
             
 
         }
 
-        Node<T> * Delete(Node<T> *root, T val) {
+        Node<T> * Delete(Node<T> *root, T User_ID) {
 
             if (root == NULL) {
                 std::cout << "Node not found ";
                 return NULL;
             }
 
-            if (root->data > val) {
-                root->Left = Delete(root->Left, val);
+            if (root->User_ID > User_ID) {
+                root->Left = Delete(root->Left, User_ID);
             }
 
-            else if (root->data < val) {
-                root->Right = Delete(root->Right, val);
+            else if (root->User_ID < User_ID) {
+                root->Right = Delete(root->Right, User_ID);
             }
 
             else {
@@ -90,8 +90,8 @@ class Node {
                         temp = temp->Left;
                     }
 
-                    root->data = temp->data;
-                    root->Right = Delete(root->Right, temp->data);
+                    root->User_ID = temp->User_ID;
+                    root->Right = Delete(root->Right, temp->User_ID);
                 }
             }
             return root;
