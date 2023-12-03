@@ -1,5 +1,3 @@
-//Christos Charalampidis icsd21071 
-//Stavros Charalampidis icsd22239
 
 #include <stdio.h>
 #include <string.h>
