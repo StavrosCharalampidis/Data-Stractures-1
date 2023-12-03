@@ -15,8 +15,3 @@ git push -u origin dms3
 git add main
 git commit -m "🔨 ⚡⚙️ C Exe file ⚡⚙️ 🔨"
 git push -u origin dms3
-
-
-git add .
-git commit -m "Random Commits"
-git push -u origin dms3
