@@ -54,7 +54,7 @@ class Node {
 
         }
 
-        Node<T> *Delete(Node<T> *root, T val) {
+        Node<T> * Delete(Node<T> *root, T val) {
 
             if (root == NULL) {
                 std::cout << "Node not found ";
