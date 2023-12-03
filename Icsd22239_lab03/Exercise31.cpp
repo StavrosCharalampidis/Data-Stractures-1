@@ -8,7 +8,11 @@ class Node {
         Node<T> *Left, *Right;
 
     public:
-        Node(T val) : data(val), Left(NULL), Right(NULL) {};
+        Node(T val){
+            this->data = val;
+            this->Left = NULL;
+            this->Right = NULL;
+        };
 
         Node<T> * insert_node(Node<T> **root, T data) {
             if (*root == NULL) {
@@ -116,7 +120,13 @@ int main(int argc, char const *argv[])
     (*root).printPreOrder(root);
     printf("\n");
 
+    printf("Delete \n");
     (*root).Delete (root, 10);
+    printf("inorder \n");
     (*root).inorder(root);
+
+    printf("\npreorder \n");
+    (*root).printPreOrder(root);
+    printf("\n");
     return 0;
 }
