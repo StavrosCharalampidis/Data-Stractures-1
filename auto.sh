@@ -4,7 +4,7 @@ git add .vscode/*
 git commit -m "⭐️ Extensions ⭐️"
 git push -u origin dms3
 
-git add Icsd22239_Lab03/*
+git add Icsd22239_lab03/*
 git commit -m "📚 C Exercise 📚"
 git push -u origin dms3
 
