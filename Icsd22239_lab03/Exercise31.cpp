@@ -94,7 +94,6 @@ class Node {
                     root->Right = Delete(root->Right, temp->data);
                 }
             }
-
             return root;
         }
 
