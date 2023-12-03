@@ -1,6 +1,7 @@
 
 #include <iostream>
 
+
 template <typename T>
 class Node {
     private:
@@ -109,12 +110,13 @@ class Node {
 
 
 
-
     
 
 int main(int argc, char const *argv[]) {
     Node<int> *root = new Node<int>();
-    int choice, val;
+    
+
+    int choice, val, del_val;
     std::cout << "Give choice: " << std::endl;
     std::cin >> choice;
 
@@ -123,6 +125,7 @@ int main(int argc, char const *argv[]) {
         if (choice == 1) {
             std::cout << "Give data: " << std::endl;
             std::cin >> val;
+            
             (*root).insert_node(&root, val);
         }
 
@@ -130,30 +133,23 @@ int main(int argc, char const *argv[]) {
             printf("\npreorder \n");
             (*root).printPreOrder(root);
         }
+
+        if (choice == 3) {
+            printf("inorder \n");
+            (*root).inorder(root);
+        }
         
+        if (choice == 4) {
+            std::cout << "Give data to delete: " << std::endl;
+            std::cin >> del_val;
+            printf("Delete \n");
+            (*root).Delete (root, del_val);
+        }
         
 
         std::cout << "Give choice: " << std::endl;
         std::cin >> choice;
     }
 
-
-    // (*root).insert_node(&root, 20);
-    // (*root).insert_node(&root, 0);
-    // (*root).insert_node(&root, 60);
-    // printf("inorder \n");
-    // (*root).inorder(root);
-    // printf("\npreorder \n");
-    // (*root).printPreOrder(root);
-    // printf("\n");
-
-    // printf("Delete \n");
-    // (*root).Delete (root, 10);
-    // printf("inorder \n");
-    // (*root).inorder(root);
-
-    // printf("\npreorder \n");
-    // (*root).printPreOrder(root);
-    // printf("\n");
     return 0;
 }
